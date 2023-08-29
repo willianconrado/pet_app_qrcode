@@ -23,9 +23,9 @@ class Address extends StatelessWidget {
               topRight: Radius.circular(20),
             ),
           ),
-          child: const Column(
+          child: Column(
             children: <Widget>[
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(top: 60),
                 child: Text(
                   "Meus endereços",
@@ -36,10 +36,10 @@ class Address extends StatelessWidget {
                   ),
                 ),
               ),
-               SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-               Text(
+              const Text(
                 "Assim você poderá enviar e receber alertas de animais perdidos em sua vizinhança!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -47,11 +47,46 @@ class Address extends StatelessWidget {
                   color: Color.fromARGB(255, 121, 119, 119),
                 ),
               ),
-               SizedBox(
+              const SizedBox(
                 height: 50,
-            ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 500,
+                    padding: const EdgeInsets.fromLTRB(30, 0, 30, 0),
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        prefixIcon: const Icon(Icons.search),
+                        hintText: "Pesquise seu endereço",
+                        fillColor: Colors.white,
+                        filled: true,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(23),
+                          borderSide:
+                              const BorderSide(color: Colors.black, width: 2),
+                        ),
+                        contentPadding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(23),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(23),
+                          borderSide:
+                              const BorderSide(color: Colors.blue, width: 4),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 50,
+              ),
             ],
-           ),
+          ),
         ),
       ),
     );

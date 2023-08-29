@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
+import '../components/authentication_input_decoration.dart';
+
 class RegisterPhone extends StatelessWidget {
   const RegisterPhone({super.key});
 
@@ -58,15 +60,7 @@ class RegisterPhone extends StatelessWidget {
                 child:  TextFormField(
                   keyboardType: TextInputType.number,
                   maxLength: 20,
-                  decoration: InputDecoration(
-                    hintText: "Exemplo: +55 85 9545-3213",
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(26),
-                      borderSide: const BorderSide(color: Colors.red),
-                    ),
-                    hintMaxLines: null,
-                    labelText: "Número de telefone",
-                  ),
+                     decoration: getAuthenticationInputDecoration("Número de telefone") 
                 ),
               ),
               const SizedBox(

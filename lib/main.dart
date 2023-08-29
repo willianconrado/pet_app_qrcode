@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pet_app_qrcode/screens/address.dart';
-import 'package:pet_app_qrcode/screens/login.page.dart';
-import 'screens/register.phone.dart';
 
 void main() {
   runApp(const MyApp());
