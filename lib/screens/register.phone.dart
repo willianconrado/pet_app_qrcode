@@ -54,13 +54,14 @@ class RegisterPhone extends StatelessWidget {
               Container(constraints: const BoxConstraints(
                 maxHeight: 120,
               ),
-                width: 250,
+                width: 360,
                 child:  TextFormField(
+                  keyboardType: TextInputType.number,
                   maxLength: 20,
                   decoration: InputDecoration(
                     hintText: "Exemplo: +55 85 9545-3213",
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(23),
+                      borderRadius: BorderRadius.circular(26),
                       borderSide: const BorderSide(color: Colors.red),
                     ),
                     hintMaxLines: null,
