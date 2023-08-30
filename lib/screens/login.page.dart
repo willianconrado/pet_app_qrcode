@@ -8,7 +8,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool checkValue = true;
+  bool checkValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -68,10 +68,13 @@ class _LoginPageState extends State<LoginPage> {
                             "assets/facebook.png",
                           ),
                         ),
-                        const Text("Continuar com Facebook"),
+                        const Text(
+                          "Continuar com Facebook",
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ],
                     ),
-                    onPressed: () {},
+                    onPressed: checkValue ? _doSomething : null,
                   ),
                 ),
               ),
@@ -104,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                         const Text("Continuar com Google"),
                       ],
                     ),
-                    onPressed: () {},
+                    onPressed: checkValue ? _doSomething : null,
                   ),
                 ),
               ),
@@ -136,3 +139,5 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+void _doSomething() {}

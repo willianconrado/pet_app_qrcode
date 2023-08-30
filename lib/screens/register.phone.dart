@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
 import '../components/authentication_input_decoration.dart';
 
 class RegisterPhone extends StatelessWidget {
@@ -53,15 +52,16 @@ class RegisterPhone extends StatelessWidget {
               const SizedBox(
                 height: 50,
               ),
-              Container(constraints: const BoxConstraints(
-                maxHeight: 120,
-              ),
-                width: 360,
-                child:  TextFormField(
-                  keyboardType: TextInputType.number,
-                  maxLength: 20,
-                     decoration: getAuthenticationInputDecoration("Número de telefone") 
+              Container(
+                constraints: const BoxConstraints(
+                  maxHeight: 120,
                 ),
+                width: 360,
+                child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    maxLength: 20,
+                    decoration:
+                        getAuthenticationInputDecoration("Número de telefone")),
               ),
               const SizedBox(
                 height: 49,
@@ -73,9 +73,11 @@ class RegisterPhone extends StatelessWidget {
                   onPressed: () {
                     print("Pressed");
                   },
-                  child: const Text("Confirmar", style: TextStyle(
-                    fontSize: 18,
-                  ),
+                  child: const Text(
+                    "Confirmar",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
                   ),
                 ),
               ),

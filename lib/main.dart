@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_app_qrcode/screens/address.dart';
+import 'package:pet_app_qrcode/screens/login.page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
       ),
       debugShowCheckedModeBanner: false,
-      home: const Address(),
+      home: const LoginPage(),
     );
   }
 }
