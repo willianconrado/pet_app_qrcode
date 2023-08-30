@@ -10,6 +10,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool checkValue = false;
 
+  void _validatingCheckbox() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +61,17 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   child: TextButton(
+                    onPressed: () {
+                      if (checkValue) {
+                        _validatingCheckbox();
+                      } else {
+                        const snackBar = SnackBar(
+                          content: Text(
+                              "Assine os termos antes de logar na sua conta!"),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    },
                     child: Row(
                       children: <Widget>[
                         SizedBox(
@@ -70,11 +83,10 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         const Text(
                           "Continuar com Facebook",
-                          overflow: TextOverflow.ellipsis,
+                          //overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
-                    onPressed: checkValue ? _doSomething : null,
                   ),
                 ),
               ),
@@ -95,6 +107,17 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   child: TextButton(
+                    onPressed: () {
+                      if (checkValue) {
+                        _validatingCheckbox();
+                      } else {
+                        const snackBar = SnackBar(
+                          content: Text(
+                              "Assine os termos antes de logar na sua conta!"),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    },
                     child: Row(
                       children: <Widget>[
                         SizedBox(
@@ -107,7 +130,6 @@ class _LoginPageState extends State<LoginPage> {
                         const Text("Continuar com Google"),
                       ],
                     ),
-                    onPressed: checkValue ? _doSomething : null,
                   ),
                 ),
               ),
@@ -139,5 +161,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-void _doSomething() {}

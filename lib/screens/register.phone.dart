@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import '../components/authentication_input_decoration.dart';
 
 class RegisterPhone extends StatelessWidget {
   const RegisterPhone({super.key});
@@ -78,9 +76,7 @@ class RegisterPhone extends StatelessWidget {
                 height: 50,
                 width: 350,
                 child: ElevatedButton(
-                  onPressed: () {
-                    print("Pressed");
-                  },
+                  onPressed: () {},
                   child: const Text(
                     "Confirmar",
                     style: TextStyle(
