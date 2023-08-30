@@ -23,8 +23,8 @@ class Address extends StatelessWidget {
               topRight: Radius.circular(20),
             ),
           ),
-          child: const Column(
-            children: <Widget>[
+          child: Column(
+            children: const <Widget>[
               Padding(
                 padding: EdgeInsets.only(top: 60),
                 child: Text(
@@ -36,10 +36,10 @@ class Address extends StatelessWidget {
                   ),
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 30,
               ),
-               Text(
+              Text(
                 "Assim você poderá enviar e receber alertas de animais perdidos em sua vizinhança!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -47,11 +47,11 @@ class Address extends StatelessWidget {
                   color: Color.fromARGB(255, 121, 119, 119),
                 ),
               ),
-               SizedBox(
+              SizedBox(
                 height: 50,
-            ),
+              ),
             ],
-           ),
+          ),
         ),
       ),
     );

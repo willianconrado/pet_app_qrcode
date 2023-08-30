@@ -51,15 +51,16 @@ class RegisterPhone extends StatelessWidget {
               const SizedBox(
                 height: 50,
               ),
-              Container(constraints: const BoxConstraints(
-                maxHeight: 120,
-              ),
+              Container(
+                constraints: const BoxConstraints(
+                  maxHeight: 120,
+                ),
                 width: 360,
-                child:  TextFormField(
+                child: TextFormField(
                   keyboardType: TextInputType.number,
                   maxLength: 20,
                   decoration: InputDecoration(
-                    hintText: "Exemplo: +55 85 9545-3213",
+                    hintText: "Exemplo: +55 85 99545-3213",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(26),
                       borderSide: const BorderSide(color: Colors.red),
@@ -79,9 +80,11 @@ class RegisterPhone extends StatelessWidget {
                   onPressed: () {
                     print("Pressed");
                   },
-                  child: const Text("Confirmar", style: TextStyle(
-                    fontSize: 18,
-                  ),
+                  child: const Text(
+                    "Confirmar",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
                   ),
                 ),
               ),
