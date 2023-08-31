@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pet_app_qrcode/screens/register_screen.dart';
+
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -107,17 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   child: TextButton(
-                    onPressed: () {
-                      if (checkValue) {
-                        _validatingCheckbox();
-                      } else {
-                        const snackBar = SnackBar(
-                          content: Text(
-                              "Assine os termos antes de logar na sua conta!"),
-                        );
-                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                      }
-                    },
+                    onPressed: () {},
                     child: Row(
                       children: <Widget>[
                         SizedBox(
@@ -134,7 +127,31 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(
-                height: 16,
+                height: 4,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  height: 48,
+                  child: TextButton(
+                    onPressed: () {
+                       Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const RegisteScreen()));
+                      },
+                    child: const Row(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 32,
+                          width: 70,
+                        ),
+                         Text(
+                          "não tem uma conta? cadastre-se",
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ),
               Center(
                 child: Row(
@@ -155,6 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ],
+            
           ),
         ),
       ),

@@ -12,7 +12,7 @@ class RegisterPhone extends StatelessWidget {
       ),
       backgroundColor: Colors.purple,
       body: Padding(
-        padding: const EdgeInsets.only(top: 50),
+        padding: const EdgeInsets.all(8.0),
         child: Container(
           width: 1000,
           height: 1000,
