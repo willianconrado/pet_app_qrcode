@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pet_app_qrcode/screens/register_screen.dart';
-
-
+import 'package:pet_app_qrcode/screens/register.screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -135,17 +133,18 @@ class _LoginPageState extends State<LoginPage> {
                   height: 48,
                   child: TextButton(
                     onPressed: () {
-                       Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const RegisteScreen()));
-                      },
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const RegisterScreen()));
+                    },
                     child: const Row(
                       children: <Widget>[
                         SizedBox(
                           height: 32,
                           width: 70,
                         ),
-                         Text(
+                        Text(
                           "não tem uma conta? cadastre-se",
                         ),
                       ],
@@ -172,7 +171,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ],
-            
           ),
         ),
       ),
