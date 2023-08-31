@@ -64,12 +64,15 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       if (checkValue) {
                         _validatingCheckbox();
+                        print("Deu bom carai");
                       } else {
                         const snackBar = SnackBar(
                           content: Text(
                               "Assine os termos antes de logar na sua conta!"),
                         );
+
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        print("TNC carai, aceita os termo ai, porra!");
                       }
                     },
                     child: Row(
@@ -110,12 +113,14 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       if (checkValue) {
                         _validatingCheckbox();
+                        print("Deu bom carai");
                       } else {
                         const snackBar = SnackBar(
                           content: Text(
                               "Assine os termos antes de logar na sua conta!"),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        print("TNC carai, aceita os termo ai, porra!");
                       }
                     },
                     child: Row(
