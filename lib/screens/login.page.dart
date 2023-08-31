@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               Image.asset("assets/logo.png"),
               const SizedBox(
-                height: 32,
+                height: 16,
               ),
               const Text(
                 "Cuide de quem você ama!",
@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(
-                height: 32,
+                height: 16,
               ),
               const Text(
                 style: TextStyle(
@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
-                height: 32,
+                height: 16,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -108,7 +108,17 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if (checkValue) {
+                        _validatingCheckbox();
+                      } else {
+                        const snackBar = SnackBar(
+                          content: Text(
+                              "Assine os termos antes de logar na sua conta!"),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    },
                     child: Row(
                       children: <Widget>[
                         SizedBox(
@@ -125,32 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(
-                height: 4,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  height: 48,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegisterScreen()));
-                    },
-                    child: const Row(
-                      children: <Widget>[
-                        SizedBox(
-                          height: 32,
-                          width: 70,
-                        ),
-                        Text(
-                          "não tem uma conta? cadastre-se",
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                height: 16,
               ),
               Center(
                 child: Row(
@@ -168,6 +153,34 @@ class _LoginPageState extends State<LoginPage> {
                           "Ao criar sua conta, você concorda com os nossos TERMOS DE USO e a POLITICA DE PRIVACIDADE."),
                     ),
                   ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 48,
+                  child: TextButton(
+                    onPressed: () {
+                      if (checkValue) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RegisterScreen(),
+                          ),
+                        );
+                      } else {
+                        const snackBar = SnackBar(
+                          content: Text(
+                              "Assine os termos antes de logar na sua conta!"),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    },
+                    child: const Text(
+                      "Não tem uma conta?\n Cadastre-se",
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
               ),
             ],
