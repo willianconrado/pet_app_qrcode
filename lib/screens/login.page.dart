@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'register.phone.dart';
-
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
@@ -66,17 +64,11 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       if (checkValue) {
                         _validatingCheckbox();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegisterPhone()),
-                        );
                       } else {
                         const snackBar = SnackBar(
                           content: Text(
                               "Assine os termos antes de logar na sua conta!"),
                         );
-
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
                     },
@@ -118,12 +110,6 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       if (checkValue) {
                         _validatingCheckbox();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RegisterPhone()),
-                        );
-                        print("Deu bom carai");
                       } else {
                         const snackBar = SnackBar(
                           content: Text(

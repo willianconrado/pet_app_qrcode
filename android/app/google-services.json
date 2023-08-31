@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "444495292216",
+    "project_id": "pet-app-qrcode",
+    "storage_bucket": "pet-app-qrcode.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:444495292216:android:c1291d38c15d8c04aa43cd",
+        "android_client_info": {
+          "package_name": "com.example.pet_app_qrcode"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "444495292216-cqdnn3n5p6gvreaai0uo47h2sb4180be.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHuQqrZa7qvDmkukxDFSg3bxpJHw7PPjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "444495292216-cqdnn3n5p6gvreaai0uo47h2sb4180be.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "444495292216-7oiue6dtg19mp408mmpqs28hvvslucpu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.petAppQrcode"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
