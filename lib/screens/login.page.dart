@@ -78,7 +78,6 @@ class _LoginPageState extends State<LoginPage> {
                         );
 
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        print("TNC carai, aceita os termo ai, porra!");
                       }
                     },
                     child: Row(
@@ -131,7 +130,6 @@ class _LoginPageState extends State<LoginPage> {
                               "Assine os termos antes de logar na sua conta!"),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        print("TNC carai, aceita os termo ai, porra!");
                       }
                     },
                     child: Row(
