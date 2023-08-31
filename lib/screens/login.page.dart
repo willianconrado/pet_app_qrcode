@@ -130,6 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                               "Assine os termos antes de logar na sua conta!"),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        print("Testando");
                       }
                     },
                     child: Row(
