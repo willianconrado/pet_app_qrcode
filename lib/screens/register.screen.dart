@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/authentication.input.decoration.dart';
-import 'services/service.auth.dart';
+import '../services/service.auth.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -19,7 +19,7 @@ final TextEditingController _passwordController = TextEditingController();
 final TextEditingController _nameController = TextEditingController();
 final TextEditingController _phoneController = TextEditingController();
 
-AuthService _authenService = AuthService();
+final AuthService _authenService = AuthService();
 
 
   @override
