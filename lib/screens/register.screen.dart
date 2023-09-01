@@ -71,10 +71,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   return "O E-mail não pode ser vázio";
                                 }
                                 if (value.length < 4) {
-                                  return "o E-mail é muito curto";
+                                  return "O E-mail é muito curto";
                                 }
                                 if (!value.contains("@")) {
-                                  return "o E-mail não é válido";
+                                  return "O E-mail não é válido";
                                 }
                                 return null;
                               },
@@ -91,7 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   return "O nome não pode ser vázio";
                                 }
                                 if (value.length < 3) {
-                                  return "o nome é muito curto";
+                                  return "O nome é muito curto";
                                 }
                                 return null;
                               },
@@ -122,7 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   "Confirmar Senha"),
                               validator: (String? value) {
                                 if (value == null || value.isEmpty) {
-                                  return "A Confirmação de senha não pode ser vázia";
+                                  return "A Confirmação de senha não pode ser vazia";
                                 }
                                 if (value != _passwordController.text) {
                                   return "As senhas não conferem";
