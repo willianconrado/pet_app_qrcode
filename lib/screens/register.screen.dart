@@ -19,7 +19,7 @@ final TextEditingController _passwordController = TextEditingController();
 final TextEditingController _nameController = TextEditingController();
 final TextEditingController _phoneController = TextEditingController();
 
- AuthService _authenService = AuthService();
+final AuthService _authenService = AuthService();
 
 
   @override
