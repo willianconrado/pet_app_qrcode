@@ -23,8 +23,8 @@ class Address extends StatelessWidget {
               topRight: Radius.circular(20),
             ),
           ),
-          child: const Column(
-            children: <Widget>[
+          child: Column(
+            children: const <Widget>[
               Padding(
                 padding: EdgeInsets.only(top: 60),
                 child: Text(

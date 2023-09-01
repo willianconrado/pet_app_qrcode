@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pet_app_qrcode/screens/login.page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'screens/register.phone.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
       ),
       debugShowCheckedModeBanner: false,
-      home: const LoginPage(),
+      home: const RegisterPhone(),
     );
   }
 }

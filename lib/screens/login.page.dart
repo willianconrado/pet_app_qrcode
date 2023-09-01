@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pet_app_qrcode/screens/register.screen.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -24,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
             children: <Widget>[
               Image.asset("assets/logo.png"),
               const SizedBox(
-                height: 32,
+                height: 16,
               ),
               const Text(
                 "Cuide de quem você ama!",
@@ -35,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(
-                height: 32,
+                height: 16,
               ),
               const Text(
                 style: TextStyle(
@@ -45,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(
-                height: 32,
+                height: 16,
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -153,6 +154,34 @@ class _LoginPageState extends State<LoginPage> {
                           "Ao criar sua conta, você concorda com os nossos TERMOS DE USO e a POLITICA DE PRIVACIDADE."),
                     ),
                   ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  height: 48,
+                  child: TextButton(
+                    onPressed: () {
+                      if (checkValue) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const RegisterScreen(),
+                          ),
+                        );
+                      } else {
+                        const snackBar = SnackBar(
+                          content: Text(
+                              "Assine os termos antes de logar na sua conta!"),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    },
+                    child: const Text(
+                      "Não tem uma conta?\n Cadastre-se",
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
               ),
             ],
