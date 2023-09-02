@@ -29,7 +29,6 @@ class _SchedulePageState extends State<SchedulePage> {
       body: Column(
         children: [
           TableCalendar(
-            locale: 'pt_BR',
             headerStyle: const HeaderStyle(
               formatButtonVisible: false,
             ),

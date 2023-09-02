@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:intl/intl.dart';
 import 'package:pet_app_qrcode/screens/home.page.dart';
 import 'package:pet_app_qrcode/screens/notifications.page.dart';
 import 'package:pet_app_qrcode/screens/tabs.page.dart';
