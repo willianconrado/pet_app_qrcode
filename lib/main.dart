@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:pet_app_qrcode/screens/home.page.dart';
 import 'package:pet_app_qrcode/screens/notifications.page.dart';
+import 'package:pet_app_qrcode/screens/tabs.page.dart';
 import 'firebase_options.dart';
 import 'screens/login.page.dart';
 import 'screens/register.phone.dart';
@@ -24,7 +26,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
       ),
       debugShowCheckedModeBanner: false,
-      home: const NotificationsPage(),
+      home: const TabsPage(),
     );
   }
 }
