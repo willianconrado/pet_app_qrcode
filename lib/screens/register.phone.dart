@@ -65,7 +65,7 @@ class RegisterPhone extends StatelessWidget {
                     keyboardType: TextInputType.number,
                     maxLength: 20,
                     decoration: InputDecoration(
-                      hintText: "Exemplo: +55 85 9545-3213",
+                      hintText: "Exemplo: +55 85 99545-3213",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(26),
                         borderSide: const BorderSide(color: Colors.red),

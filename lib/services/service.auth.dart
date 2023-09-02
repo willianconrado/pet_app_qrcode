@@ -4,8 +4,9 @@ class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   registerUser({
     required String email,
-    required String password,
     required String name,
+    required String password,
+    required String telephone,
   }) {
     _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);

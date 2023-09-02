@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:pet_app_qrcode/screens/home.page.dart';
 import '../components/authentication.input.decoration.dart';
 import '../services/service.auth.dart';
+import 'tabs.page.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -17,7 +18,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _telephoneController = TextEditingController();
 
   final AuthService _authenService = AuthService();
 
@@ -135,7 +136,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               height: 10,
                             ),
                             TextFormField(
-                              controller: _phoneController,
+                              controller: _telephoneController,
                               decoration:
                                   getAuthenticationInputDecoration("Telefone"),
                               validator: (String? value) {
@@ -156,7 +157,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               width: 310,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  buttonRegisterPressed();
+                                  if (_formKey.currentState!.validate()) {
+                                    buttonRegisterPressed();
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const TabsPage(),
+                                      ),
+                                    );
+                                  }
                                 },
                                 child: const Text(
                                   "Cadastrar",
@@ -192,11 +201,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
     String name = _nameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
+    String telephone = _telephoneController.text;
     if (_formKey.currentState!.validate()) {
       print("Form válido");
       print(
-          "${_emailController.text}, ${_passwordController.text}, ${_nameController.text}, ${_phoneController.text}, ");
-      _authenService.registerUser(email: email, password: password, name: name);
+          "${_emailController.text}, ${_passwordController.text}, ${_nameController.text}, ${_telephoneController.text}, ");
+      _authenService.registerUser(
+          email: email, password: password, name: name, telephone: telephone);
     } else {
       print("Form inválido");
     }
