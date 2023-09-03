@@ -29,7 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   table_calendar: ^3.0.9
-  intl: ^0.17.0
+  intl: ^0.18.1
   firebase_auth: ^4.9.0
   firebase_core: ^2.15.1
   flutter:
@@ -67,6 +67,7 @@ flutter:
      - assets/google.png
      - assets/logo.png
      - assets/notifications.png
+     - assets/calendar.png
      
 
   # An image asset can refer to one or more resolution-specific "variants", see

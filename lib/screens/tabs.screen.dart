@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pet_app_qrcode/screens/home.page.dart';
-import 'package:pet_app_qrcode/screens/notifications.page.dart';
-import 'package:pet_app_qrcode/screens/profile.page.dart';
-import 'package:pet_app_qrcode/screens/schedule.page.dart';
+import 'package:pet_app_qrcode/screens/home.screen.dart';
+import 'package:pet_app_qrcode/screens/notifications.screen.dart';
+import 'package:pet_app_qrcode/screens/profile.screen.dart';
+import 'package:pet_app_qrcode/screens/schedule.screen.dart';
 
 class TabsPage extends StatelessWidget {
   const TabsPage({super.key});
@@ -40,8 +40,8 @@ class TabsPage extends StatelessWidget {
               text: 'Perfil',
             ),
           ],
-          labelColor: Colors.amber,
-          unselectedLabelColor: Colors.black38,
+          labelColor: Colors.purple,
+          unselectedLabelColor: Colors.black45,
           indicatorSize: TabBarIndicatorSize.label,
           indicatorPadding: EdgeInsets.all(5.0),
           indicatorColor: Colors.black,

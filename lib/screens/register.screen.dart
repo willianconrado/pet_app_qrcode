@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pet_app_qrcode/screens/home.page.dart';
+import 'package:pet_app_qrcode/screens/home.screen.dart';
 import '../components/authentication.input.decoration.dart';
 import '../services/service.auth.dart';
-import 'tabs.page.dart';
+import 'tabs.screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
