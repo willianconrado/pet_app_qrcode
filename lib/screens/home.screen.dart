@@ -9,7 +9,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "PetApp",
+          "Pet Finder",
           style: TextStyle(color: Colors.black),
         ),
         elevation: 0,

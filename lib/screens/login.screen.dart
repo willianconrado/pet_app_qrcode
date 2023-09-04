@@ -117,6 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                               "Assine os termos antes de logar na sua conta!"),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        print("Testando");
                       }
                     },
                     child: Row(
@@ -171,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                       } else {
                         const snackBar = SnackBar(
                           content: Text(
-                              "Assine os termos antes de logar na sua conta!"),
+                              "Você precisa aceitar os termos antes de criar a sua conta!"),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:pet_app_qrcode/screens/home.screen.dart';
 import '../components/authentication.input.decoration.dart';
 import '../services/service.auth.dart';
+import 'tabs.screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -9,18 +10,17 @@ class RegisterScreen extends StatefulWidget {
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
+
 class _RegisterScreenState extends State<RegisterScreen> {
   bool wanttoJoin = true;
   final _formKey = GlobalKey<FormState>();
 
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _telephoneController = TextEditingController();
 
-final TextEditingController _emailController = TextEditingController();
-final TextEditingController _passwordController = TextEditingController();
-final TextEditingController _nameController = TextEditingController();
-final TextEditingController _phoneController = TextEditingController();
-
-final AuthService _authenService = AuthService();
-
+  final AuthService _authenService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,6 @@ final AuthService _authenService = AuthService();
                       bottomRight: Radius.circular(30),
                     ),
                   ),
-                  
                   child: Form(
                     key: _formKey,
                     child: Padding(
@@ -66,16 +65,17 @@ final AuthService _authenService = AuthService();
                             ),
                             TextFormField(
                               controller: _emailController,
-                              decoration: getAuthenticationInputDecoration("E-mail"),
+                              decoration:
+                                  getAuthenticationInputDecoration("E-mail"),
                               validator: (String? value) {
                                 if (value == null) {
                                   return "O E-mail não pode ser vázio";
                                 }
                                 if (value.length < 4) {
-                                  return "o E-mail é muito curto";
+                                  return "O E-mail é muito curto";
                                 }
                                 if (!value.contains("@")) {
-                                  return "o E-mail não é válido";
+                                  return "O E-mail não é válido";
                                 }
                                 return null;
                               },
@@ -85,13 +85,14 @@ final AuthService _authenService = AuthService();
                             ),
                             TextFormField(
                               controller: _nameController,
-                              decoration: getAuthenticationInputDecoration("Nome"),
+                              decoration:
+                                  getAuthenticationInputDecoration("Nome"),
                               validator: (String? value) {
                                 if (value == null) {
                                   return "O nome não pode ser vázio";
                                 }
                                 if (value.length < 3) {
-                                  return "o nome é muito curto";
+                                  return "O nome é muito curto";
                                 }
                                 return null;
                               },
@@ -101,9 +102,10 @@ final AuthService _authenService = AuthService();
                             ),
                             TextFormField(
                               controller: _passwordController,
-                              decoration: getAuthenticationInputDecoration("Senha"),
-                               validator: (String? value) {
-                                if (value == null) {
+                              decoration:
+                                  getAuthenticationInputDecoration("Senha"),
+                              validator: (String? value) {
+                                if (value == null || value.isEmpty) {
                                   return "A senha não pode ser vázia";
                                 }
                                 if (value.length < 5) {
@@ -117,14 +119,14 @@ final AuthService _authenService = AuthService();
                               height: 10,
                             ),
                             TextFormField(
-                              decoration:
-                                  getAuthenticationInputDecoration("Confirmar Senha"),
-                                    validator: (String? value) {
-                                if (value == null) {
-                                  return "A Confirmação de senha não pode ser vázia";
+                              decoration: getAuthenticationInputDecoration(
+                                  "Confirmar Senha"),
+                              validator: (String? value) {
+                                if (value == null || value.isEmpty) {
+                                  return "A Confirmação de senha não pode ser vazia";
                                 }
-                                if (value.length < 7) {
-                                  return "A Confirmação de senha é muito curta";
+                                if (value != _passwordController.text) {
+                                  return "As senhas não conferem";
                                 }
                                 return null;
                               },
@@ -134,9 +136,10 @@ final AuthService _authenService = AuthService();
                               height: 10,
                             ),
                             TextFormField(
-                              controller: _phoneController,
-                              decoration: getAuthenticationInputDecoration("Telefone"),
-                               validator: (String? value) {
+                              controller: _telephoneController,
+                              decoration:
+                                  getAuthenticationInputDecoration("Telefone"),
+                              validator: (String? value) {
                                 if (value == null) {
                                   return "O telefone não pode ser vázio";
                                 }
@@ -154,7 +157,15 @@ final AuthService _authenService = AuthService();
                               width: 310,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  buttonRegisterPressed();
+                                  if (_formKey.currentState!.validate()) {
+                                    buttonRegisterPressed();
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const TabsPage(),
+                                      ),
+                                    );
+                                  }
                                 },
                                 child: const Text(
                                   "Cadastrar",
@@ -190,11 +201,14 @@ final AuthService _authenService = AuthService();
     String name = _nameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
+    String telephone = _telephoneController.text;
     if (_formKey.currentState!.validate()) {
       print("Form válido");
-      print("${_emailController.text}, ${_passwordController.text}, ${_nameController.text}, ${_phoneController.text}, ");
-      _authenService.registerUser(email: email, password: password, name: name);
-    }else{
+      print(
+          "${_emailController.text}, ${_passwordController.text}, ${_nameController.text}, ${_telephoneController.text}, ");
+      _authenService.registerUser(
+          email: email, password: password, name: name, telephone: telephone);
+    } else {
       print("Form inválido");
     }
   }
