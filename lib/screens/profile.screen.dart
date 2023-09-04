@@ -28,7 +28,7 @@ class ProfilePage extends StatelessWidget {
               child: CircleAvatar(
                 radius: 60,
                 backgroundColor: Colors.amber,
-                backgroundImage: AssetImage('assets/seu_avatar.jpg'),
+               // backgroundImage: AssetImage('assets/seu_avatar.jpg'),
               ),
             ),
           ),
