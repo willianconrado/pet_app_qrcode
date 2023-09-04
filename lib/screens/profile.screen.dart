@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pet_app_qrcode/screens/settings.screen.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -32,22 +34,47 @@ class ProfilePage extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           ListTile(
-            leading: Icon(Icons.account_circle),
-            title: Text('Minha Conta'),
-            trailing: Icon(Icons.arrow_forward),
+            leading: const Icon(
+              FontAwesomeIcons.user,
+              color: Colors.purple,
+              size: 30,
+            ),
+            title: const Text('Minha Conta'),
+            trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
             onTap: () {},
           ),
-          ListTile(
-            leading: Icon(Icons.location_on),
-            title: Text('Meu Endereço'),
-            trailing: Icon(Icons.arrow_forward),
-            onTap: () {},
+          const SizedBox(
+            height: 10,
           ),
           ListTile(
-            leading: Icon(Icons.settings),
-            title: Text('Configurações'),
-            trailing: Icon(Icons.arrow_forward),
+            leading: const Icon(
+              FontAwesomeIcons.locationDot,
+              color: Colors.green,
+              size: 30,
+            ),
+            title: const Text('Meu Endereço'),
+            trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
             onTap: () {},
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          ListTile(
+            leading: const Icon(
+              FontAwesomeIcons.gear,
+              color: Colors.orange,
+              size: 30,
+            ),
+            title: const Text('Configurações'),
+            trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const SettingsScreen(),
+                ),
+              );
+            },
           ),
         ],
       ),

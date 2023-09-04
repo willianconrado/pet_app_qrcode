@@ -5,8 +5,8 @@ import 'package:pet_app_qrcode/screens/home.screen.dart';
 import 'package:pet_app_qrcode/screens/notifications.screen.dart';
 import 'package:pet_app_qrcode/screens/tabs.screen.dart';
 import 'firebase_options.dart';
-import 'screens/login.page.dart';
-import 'screens/register.phone.dart';
+import 'screens/login.screen.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 void main() async {
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
       ),
       debugShowCheckedModeBanner: false,
-      home: const LoginPage(),
+      home: const TabsPage(),
     );
   }
 }
