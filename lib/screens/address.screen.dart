@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Address extends StatelessWidget {
   const Address({super.key});
@@ -23,9 +24,9 @@ class Address extends StatelessWidget {
               topRight: Radius.circular(20),
             ),
           ),
-          child: const Column(
+          child: Column(
             children: <Widget>[
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(top: 60),
                 child: Text(
                   "Meus endereços",
@@ -36,10 +37,10 @@ class Address extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
-              Text(
+              const Text(
                 "Assim você poderá enviar e receber alertas de animais perdidos em sua vizinhança!",
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -47,9 +48,54 @@ class Address extends StatelessWidget {
                   color: Color.fromARGB(255, 121, 119, 119),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: Card(
+                  elevation: 0,
+                  color: Colors.grey[200],
+                  child: ListTile(
+                    leading: const Icon(
+                      FontAwesomeIcons.magnifyingGlass,
+                      color: Colors.grey,
+                      size: 20,
+                    ),
+                    title: const Text('Pesquise seu endereço'),
+                    onTap: () {},
+                  ),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: Card(
+                  elevation: 0,
+                  child: ListTile(
+                    leading: const Icon(
+                      FontAwesomeIcons.locationCrosshairs,
+                      color: Colors.grey,
+                      size: 27,
+                    ),
+                    title: const Text('Usar Localização atual'),
+                    subtitle: const Text('Ativar Localização'),
+                    trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
+                    onTap: () {},
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              SizedBox(
+                height: 35,
+                width: 350,
+                child: ElevatedButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Adicionar novo endereço',
+                    )),
+              )
             ],
           ),
         ),

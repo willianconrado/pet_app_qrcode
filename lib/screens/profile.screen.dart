@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pet_app_qrcode/screens/address.screen.dart';
 import 'package:pet_app_qrcode/screens/settings.screen.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -28,7 +29,7 @@ class ProfilePage extends StatelessWidget {
               child: CircleAvatar(
                 radius: 60,
                 backgroundColor: Colors.amber,
-               // backgroundImage: AssetImage('assets/seu_avatar.jpg'),
+                // backgroundImage: AssetImage('assets/seu_avatar.jpg'),
               ),
             ),
           ),
@@ -47,15 +48,20 @@ class ProfilePage extends StatelessWidget {
             height: 10,
           ),
           ListTile(
-            leading: const Icon(
-              FontAwesomeIcons.locationDot,
-              color: Colors.green,
-              size: 30,
-            ),
-            title: const Text('Meu Endereço'),
-            trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
-            onTap: () {},
-          ),
+              leading: const Icon(
+                FontAwesomeIcons.locationDot,
+                color: Colors.green,
+                size: 30,
+              ),
+              title: const Text('Meu Endereço'),
+              trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Address(),
+                    ));
+              }),
           const SizedBox(
             height: 10,
           ),
