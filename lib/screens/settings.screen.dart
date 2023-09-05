@@ -52,7 +52,7 @@ class _MyWidgetState extends State<SettingsScreen> {
                   ListTile(
                     leading: const Icon(
                       FontAwesomeIcons.star,
-                      color: Colors.red,
+                      color: Colors.orange,
                       size: 25,
                     ),
                     title: const Text('Avalie nosso APP'),
@@ -78,7 +78,7 @@ class _MyWidgetState extends State<SettingsScreen> {
                   ListTile(
                     leading: const Icon(
                       FontAwesomeIcons.rocket,
-                      color: Colors.orange,
+                      color: Colors.red,
                       size: 25,
                     ),
                     title: const Text('Seja um parceiro'),
@@ -94,14 +94,48 @@ class _MyWidgetState extends State<SettingsScreen> {
             child: Card(
                 child: ListTile(
               leading: const Icon(
-                FontAwesomeIcons.rocket,
-                color: Colors.orange,
+                FontAwesomeIcons.gear,
+                color: Colors.grey,
                 size: 25,
               ),
-              title: const Text('Seja um parceiro'),
+              title: const Text('Termos de Uso'),
               trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
               onTap: () {},
             )),
+          ),
+          Container(
+            padding: const EdgeInsets.all(10),
+            child: Card(
+                child: ListTile(
+              leading: const Icon(
+                FontAwesomeIcons.landmark,
+                color: Colors.grey,
+                size: 25,
+              ),
+              title: const Text('Política de Privacidade'),
+              trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
+              onTap: () {},
+            )),
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          const Text(
+            '3.5.2',
+            style: TextStyle(fontSize: 18),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          TextButton(
+            onPressed: () {},
+            child: const Text('SAIR DA MINHA CONTA',
+                style: TextStyle(color: Colors.orange, fontSize: 15)),
+          ),
+          TextButton(
+            onPressed: () {},
+            child: const Text('REMOVER CONTA',
+                style: TextStyle(color: Colors.red, fontSize: 15)),
           ),
         ],
       ),
