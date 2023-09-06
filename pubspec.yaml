@@ -35,6 +35,7 @@ dependencies:
   flutter:
     sdk: flutter
   font_awesome_flutter: ^10.5.0
+  image_picker: ^1.0.4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -71,6 +72,7 @@ flutter:
      - assets/logo.png
      - assets/notifications.png
      - assets/calendar.png
+     - assets/noprofilepicture.png
      
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_app_qrcode/screens/address.screen.dart';
+import 'package:pet_app_qrcode/screens/my.acc.dart';
 import 'package:pet_app_qrcode/screens/settings.screen.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -39,7 +40,14 @@ class ProfilePage extends StatelessWidget {
                   ),
                   title: const Text('Minha Conta'),
                   trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MyAcc(),
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(
                   height: 10,
