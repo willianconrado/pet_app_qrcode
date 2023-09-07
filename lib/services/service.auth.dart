@@ -2,23 +2,38 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  Future<String?> registerUser({
-    required String email,
-    required String name,
-    required String password,
-  }) async {
-    try {
-  UserCredential userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
-      email: email, password: password);
-  
-    await userCredential.user!.updateDisplayName(name);
 
-    return null;
+ Future<String?> userJoin({required String email, required String password}) async {
+  try {
+  await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
 } on FirebaseAuthException catch (e) {
-  if (e.code == "email-already-in-use") {
-    return("O usuário já está cadastrado");
+  switch(e.code ){
+    case "user-not-found":
+    return "O email não está cadastrado";
+    case "wrong-password":
+    return "Senha incorreta";
   }
-  return "Erro desconhecido";
+  return e.code;
+}
+return null;
+  }
+
+  Future<String?>  userRegister(
+      {required String email,
+      required String password,
+      required String name}) async {
+    try {
+  UserCredential userCredential = await _firebaseAuth
+      .createUserWithEmailAndPassword(email: email, password: password);
+  
+  await userCredential.user!.updateDisplayName(name);
+  print("Funfou");
+} on FirebaseAuthException catch (e) {
+  switch(e.code) {
+    case "email-already-in-use":
+    return "o email já está em uso";
+  }
+  return e.code;
 }
   }
 }

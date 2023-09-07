@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pet_app_qrcode/_core/my.snackbar.dart';
 import '../components/authentication.input.decoration.dart';
+
 import '../services/service.auth.dart';
 import 'tabs.screen.dart';
 
@@ -12,15 +13,15 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  bool wanttoJoin = true;
-  final _formKey = GlobalKey<FormState>();
-
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
 
-  final AuthService _authenService = AuthService();
+  AuthService authService = AuthService();
 
+  final _formKey = GlobalKey<FormState>();
+
+  bool wanttoJoin = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,31 +68,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               decoration:
                                   getAuthenticationInputDecoration("E-mail"),
                               validator: (String? value) {
-                                if (value == null) {
+                                if (value == null || value == "") {
                                   return "O E-mail não pode ser vázio";
                                 }
-                                if (value.length < 4) {
-                                  return "O E-mail é muito curto";
-                                }
-                                if (!value.contains("@")) {
+                                if (!value.contains("@") ||
+                                    !value.contains(".") ||
+                                    value.length < 4) {
                                   return "O E-mail não é válido";
-                                }
-                                return null;
-                              },
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              controller: _nameController,
-                              decoration:
-                                  getAuthenticationInputDecoration("Nome"),
-                              validator: (String? value) {
-                                if (value == null) {
-                                  return "O nome não pode ser vázio";
-                                }
-                                if (value.length < 3) {
-                                  return "O nome é muito curto";
                                 }
                                 return null;
                               },
@@ -114,22 +97,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               },
                               obscureText: true,
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            TextFormField(
-                              decoration: getAuthenticationInputDecoration(
-                                  "Confirmar Senha"),
-                              validator: (String? value) {
-                                if (value == null || value.isEmpty) {
-                                  return "A Confirmação de senha não pode ser vazia";
-                                }
-                                if (value != _passwordController.text) {
-                                  return "As senhas não conferem";
-                                }
-                                return null;
-                              },
-                              obscureText: true,
+                            Visibility(
+                              visible: wanttoJoin,
+                              child: Column(
+                                children: [
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  TextFormField(
+                                    decoration:
+                                        getAuthenticationInputDecoration(
+                                            "Confirmar Senha"),
+                                    validator: (String? value) {
+                                      if (value == null || value.isEmpty) {
+                                        return "A Confirmação de senha não pode ser vazia";
+                                      }
+                                      if (value != _passwordController.text) {
+                                        return "As senhas não conferem";
+                                      }
+                                      return null;
+                                    },
+                                    obscureText: true,
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  TextFormField(
+                                    controller: _nameController,
+                                    decoration:
+                                        getAuthenticationInputDecoration(
+                                            "Nome"),
+                                    validator: (String? value) {
+                                      if (value == null) {
+                                        return "O nome não pode ser vázio";
+                                      }
+                                      if (value.length < 3) {
+                                        return "O nome é muito curto";
+                                      }
+                                      return null;
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
                             const SizedBox(
                               height: 10,
@@ -144,12 +153,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     buttonRegisterPressed();
-                                
                                   }
                                 },
-                                child: const Text(
-                                  "Cadastrar",
-                                  style: TextStyle(
+                                child: Text(
+                                  (wanttoJoin) ? "Cadastrar" : "Entrar",
+                                  style: const TextStyle(
                                     fontSize: 16,
                                   ),
                                 ),
@@ -159,7 +167,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               height: 3,
                             ),
                             TextButton(
-                                child: const Text('Já tem uma conta?'),
+                                child: Text((wanttoJoin)
+                                    ? "Já tem uma conta?"
+                                    : "Ainda não tem uma conta?"),
+                                onPressed: () {
+                                  setState(() {
+                                    wanttoJoin = !wanttoJoin;
+                                  });
+                                }),
+                            TextButton(
+                                child: const Text(
+                                  'Entrar com o Google',
+                                  style: TextStyle(
+                                      fontSize: 15, color: Colors.black),
+                                ),
                                 onPressed: () {
                                   Navigator.pop(context);
                                 }),
@@ -182,31 +203,57 @@ class _RegisterScreenState extends State<RegisterScreen> {
     String email = _emailController.text;
     String password = _passwordController.text;
     if (_formKey.currentState!.validate()) {
-      print("Form válido");
-      print(
-          "${_emailController.text}, ${_passwordController.text}, ${_nameController.text},");
-      _authenService
-          .registerUser(
-        email: email,
-        password: password,
-        name: name,
-      )
-          .then(
-        (String? erro) {
-          if (erro != null) {
-           //voltou com erro
-           showSnackBar(context: context, text: erro);
-          } else {
-            //deu certo
-             Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => TabsPage()));
-            showSnackBar(context: context, text: "Cadastro efetuado com sucesso", isErro: false);
-          }
-        },
-      );
-    } else {
-      print("Form inválido");
+      if (wanttoJoin) {
+        userRegister(name: name, email: email, password: password);
+      } else {
+        userJoin(email: email, password: password);
+      }
     }
+  }
+
+  userJoin({
+    required String email,
+    required String password,
+  }) {
+    authService.userJoin(email: email, password: password).then((String? erro) {
+      if (erro == null) {
+        showSnackBar(
+            context: context, text: "conta logada com sucesso", isErro: false);
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const TabsPage(),
+          ),
+        );
+      } else {
+        showSnackBar(context: context, text: erro);
+      }
+    });
+  }
+
+  userRegister({
+    required name,
+    required String email,
+    required String password,
+  }) {
+    authService
+        .userRegister(
+      email: email,
+      password: password,
+      name: name,
+    )
+        .then((String? erro) {
+      if (erro == null) {
+        showSnackBar(
+            context: context, text: "Conta criada com sucesso", isErro: false);
+                    Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const TabsPage(),
+          ),);
+      } else {
+        showSnackBar(context: context, text: erro);
+      }
+    });
   }
 }
