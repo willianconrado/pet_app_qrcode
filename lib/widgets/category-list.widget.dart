@@ -5,8 +5,7 @@ import 'category-item.widget.dart';
 class CategoryList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      scrollDirection: Axis.horizontal,
+    return Row(
       children: <Widget>[
         CategoryItem(
           image: "assets/logo_pet.png",
