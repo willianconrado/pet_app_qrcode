@@ -9,6 +9,8 @@ import 'screens/address.screen.dart';
 import 'screens/login.screen.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'screens/register.screen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
       ),
       debugShowCheckedModeBanner: false,
-      home: const TabsPage(),
+      home: const LoginPage(),
     );
   }
 }

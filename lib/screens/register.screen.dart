@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pet_app_qrcode/screens/home.screen.dart';
+import 'package:pet_app_qrcode/_core/my.snackbar.dart';
 import '../components/authentication.input.decoration.dart';
 import '../services/service.auth.dart';
 import 'tabs.screen.dart';
@@ -18,7 +18,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _telephoneController = TextEditingController();
 
   final AuthService _authenService = AuthService();
 
@@ -135,20 +134,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             const SizedBox(
                               height: 10,
                             ),
-                            TextFormField(
-                              controller: _telephoneController,
-                              decoration:
-                                  getAuthenticationInputDecoration("Telefone"),
-                              validator: (String? value) {
-                                if (value == null) {
-                                  return "O telefone não pode ser vázio";
-                                }
-                                if (value.length < 8) {
-                                  return "O telefone não pode ser vázio é muito curto";
-                                }
-                                return null;
-                              },
-                            ),
                             const SizedBox(
                               height: 16,
                             ),
@@ -159,12 +144,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     buttonRegisterPressed();
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const TabsPage(),
-                                      ),
-                                    );
+                                
                                   }
                                 },
                                 child: const Text(
@@ -201,13 +181,30 @@ class _RegisterScreenState extends State<RegisterScreen> {
     String name = _nameController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
-    String telephone = _telephoneController.text;
     if (_formKey.currentState!.validate()) {
       print("Form válido");
       print(
-          "${_emailController.text}, ${_passwordController.text}, ${_nameController.text}, ${_telephoneController.text}, ");
-      _authenService.registerUser(
-          email: email, password: password, name: name, telephone: telephone);
+          "${_emailController.text}, ${_passwordController.text}, ${_nameController.text},");
+      _authenService
+          .registerUser(
+        email: email,
+        password: password,
+        name: name,
+      )
+          .then(
+        (String? erro) {
+          if (erro != null) {
+           //voltou com erro
+           showSnackBar(context: context, text: erro);
+          } else {
+            //deu certo
+             Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (context) => TabsPage()));
+            showSnackBar(context: context, text: "Cadastro efetuado com sucesso", isErro: false);
+          }
+        },
+      );
     } else {
       print("Form inválido");
     }
