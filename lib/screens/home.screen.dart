@@ -10,16 +10,41 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           "Pet Finder",
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.purple, fontSize: 40),
         ),
         elevation: 0,
         centerTitle: true,
         backgroundColor: Colors.transparent,
-        leading: TextButton(
-          onPressed: () {},
-          style: TextButton.styleFrom(foregroundColor: Colors.black),
-          child: const Icon(Icons.qr_code),
-        ),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {},
+            style: TextButton.styleFrom(foregroundColor: Colors.purple),
+            child: const Icon(Icons.qr_code),
+          ),
+        ],
+        leading: Image.asset("assets/logo_pet.png"),
+      ),
+      body: Column(
+        children: [
+          Container(
+            margin: const EdgeInsets.all(10.0),
+            color: Colors.amber[600],
+            width: 1000.0,
+            height: 200.0,
+          ),
+          Container(
+            margin: const EdgeInsets.all(10.0),
+            color: Colors.purple[600],
+            width: 1000.0,
+            height: 100.0,
+          ),
+          Container(
+            margin: const EdgeInsets.all(10.0),
+            color: Colors.blue[600],
+            width: 1000.0,
+            height: 200.0,
+          ),
+        ],
       ),
     );
   }

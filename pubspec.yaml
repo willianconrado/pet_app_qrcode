@@ -74,6 +74,8 @@ flutter:
      - assets/notifications.png
      - assets/calendar.png
      - assets/noprofilepicture.png
+     - assets/logo_pet.png
+     - assets/home_banner.jpg
      
 
   # An image asset can refer to one or more resolution-specific "variants", see
