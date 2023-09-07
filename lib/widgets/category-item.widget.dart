@@ -35,7 +35,12 @@ class CategoryItem extends StatelessWidget {
           ),
           child: Image.asset(image),
         ),
-        Text(text),
+        Text(
+          text,
+          style: const TextStyle(
+            color: Colors.blueGrey,
+          ),
+        ),
       ],
     );
   }

@@ -33,23 +33,42 @@ class HomePage extends StatelessWidget {
             Container(
               child: Image.asset("assets/banner_home.png"),
               margin: const EdgeInsets.all(0.1),
-              height: 200.0,
+              height: 180.0,
             ),
             const SizedBox(
-              height: 16,
+              height: 8,
             ),
-            Text(
+            const Text(
               "Categorias",
-              style: Theme.of(context).textTheme.headline5,
+              style: TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 25,
+                color: Colors.black,
+              ),
             ),
             const SizedBox(
-              height: 16,
+              height: 8,
             ),
             Container(
               height: 120.0,
               child: CategoryList(),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Text(
+                  "Meus Pets",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 25,
+                    color: Colors.black,
+                  ),
+                ),
+                FloatingActionButton(onPressed: () {}),
+              ],
+            ),
             Container(
+              child: Image.asset("assets/banner_home.png"),
               margin: const EdgeInsets.all(10.0),
               color: Colors.blue[600],
               height: 150.0,
