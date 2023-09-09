@@ -218,7 +218,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     authService.userJoin(email: email, password: password).then((String? erro) {
       if (erro == null) {
         showSnackBar(
-            context: context, text: "conta logada com sucesso", isErro: false);
+            context: context, text: "Conta logada com sucesso.", isErro: false);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -245,12 +245,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
         .then((String? erro) {
       if (erro == null) {
         showSnackBar(
-            context: context, text: "Conta criada com sucesso", isErro: false);
-                    Navigator.push(
+            context: context, text: "Conta criada com sucesso.", isErro: false);
+        Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => const TabsPage(),
-          ),);
+          ),
+        );
       } else {
         showSnackBar(context: context, text: erro);
       }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'category-item.widget.dart';
 
 class CategoryList extends StatelessWidget {
@@ -7,22 +6,10 @@ class CategoryList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        CategoryItem(
-          image: "assets/logo_pet.png",
-          text: "Cuidados",
-        ),
-        CategoryItem(
-          image: "assets/logo_pet.png",
-          text: "Medicamentos",
-        ),
-        CategoryItem(
-          image: "assets/logo_pet.png",
-          text: "Vacinação",
-        ),
-        CategoryItem(
-          image: "assets/logo_pet.png",
-          text: "Consultas",
-        ),
+        CategoryItem(image: "assets/category_dog.jpg", text: "Cuidados"),
+        CategoryItem(image: "assets/logo_pet.png", text: "Medicamentos"),
+        CategoryItem(image: "assets/category_cat.jpg", text: "Vacinação"),
+        CategoryItem(image: "assets/category_dog_1.jpg", text: "Consultas"),
       ],
     );
   }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pet_app_qrcode/screens/register.screen.dart';
 
 class LoginPage extends StatefulWidget {
@@ -145,7 +144,6 @@ class _LoginPageState extends State<LoginPage> {
                     Checkbox(
                       value: checkValue,
                       onChanged: (bool? value) {
-                       
                         setState(() {
                           checkValue = value!;
                         });

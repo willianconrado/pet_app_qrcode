@@ -1,5 +1,6 @@
 // Aqui ficara a pagina principal do app
 import 'package:flutter/material.dart';
+import 'package:pet_app_qrcode/widgets/category-item.widget.dart';
 import 'package:pet_app_qrcode/widgets/category-list.widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -26,7 +27,7 @@ class HomePage extends StatelessWidget {
         leading: Image.asset("assets/logo_pet.png"),
       ),
       body: Container(
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -49,10 +50,7 @@ class HomePage extends StatelessWidget {
             const SizedBox(
               height: 8,
             ),
-            Container(
-              height: 120.0,
-              child: CategoryList(),
-            ),
+            CategoryList(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -64,15 +62,11 @@ class HomePage extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-                FloatingActionButton(onPressed: () {}),
+                FloatingActionButton.small(
+                    child: const Icon(Icons.add), onPressed: () {}),
               ],
             ),
-            Container(
-              child: Image.asset("assets/banner_home.png"),
-              margin: const EdgeInsets.all(10.0),
-              color: Colors.blue[600],
-              height: 150.0,
-            ),
+            Expanded(child: Image.asset("assets/pets.jpg")),
           ],
         ),
       ),

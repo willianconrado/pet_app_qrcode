@@ -76,7 +76,10 @@ flutter:
      - assets/noprofilepicture.png
      - assets/logo_pet.png
      - assets/banner_home.png
-
+     - assets/pets.jpg
+     - assets/category_dog.jpg
+     - assets/category_cat.jpg
+     - assets/category_dog_1.jpg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

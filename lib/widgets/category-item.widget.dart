@@ -15,25 +15,22 @@ class CategoryItem extends StatelessWidget {
     return Column(
       children: [
         Container(
-          width: 70,
-          height: 70,
-          margin: const EdgeInsets.all(10),
+          margin: const EdgeInsets.all(6),
           padding: const EdgeInsets.all(7),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.purple,
-                offset: Offset(1, 1),
-                blurRadius: 0.5,
-                spreadRadius: 0.5,
+          child: Material(
+            elevation: 2,
+            shape: const CircleBorder(),
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: InkWell(
+              onTap: () {},
+              child: Image(
+                image: AssetImage(image),
+                height: 65,
+                width: 65,
+                fit: BoxFit.cover,
               ),
-            ],
-            borderRadius: BorderRadius.all(
-              Radius.circular(65),
             ),
           ),
-          child: Image.asset(image),
         ),
         Text(
           text,
