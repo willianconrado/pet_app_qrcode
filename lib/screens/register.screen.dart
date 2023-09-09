@@ -254,11 +254,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
         .then((String? erro) {
       if (erro == null) {
         showSnackBar(
-<<<<<<< HEAD
             context: context, text: "Conta criada com sucesso.", isErro: false);
-=======
-            context: context, text: "Conta criada com sucesso", isErro: false);
->>>>>>> cabe0cd474de54982ff5ab1def5942f7501cd2ae
+
         Navigator.push(
           context,
           MaterialPageRoute(

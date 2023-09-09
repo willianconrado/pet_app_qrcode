@@ -15,6 +15,8 @@ class CategoryItem extends StatelessWidget {
     return Column(
       children: [
         Container(
+          height: 70,
+          width: 70,
           margin: const EdgeInsets.all(6),
           padding: const EdgeInsets.all(7),
           child: Material(
@@ -25,8 +27,6 @@ class CategoryItem extends StatelessWidget {
               onTap: () {},
               child: Image(
                 image: AssetImage(image),
-                height: 65,
-                width: 65,
                 fit: BoxFit.cover,
               ),
             ),

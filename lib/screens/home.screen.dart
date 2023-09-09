@@ -37,34 +37,40 @@ class HomePage extends StatelessWidget {
               height: 180.0,
             ),
             const SizedBox(
-              height: 8,
+              height: 16,
             ),
             const Text(
               "Categorias",
               style: TextStyle(
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
                 fontSize: 25,
-                color: Colors.black,
+                color: Colors.purple,
               ),
             ),
-            const SizedBox(
-              height: 8,
-            ),
             CategoryList(),
+            const SizedBox(
+              height: 16,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
                   "Meus Pets",
                   style: TextStyle(
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w600,
                     fontSize: 25,
-                    color: Colors.black,
+                    color: Colors.purple,
                   ),
                 ),
-                FloatingActionButton.small(
-                    child: const Icon(Icons.add), onPressed: () {}),
+                Container(
+                  height: 32,
+                  child: FloatingActionButton(
+                      child: const Icon(Icons.add), onPressed: () {}),
+                ),
               ],
+            ),
+            SizedBox(
+              height: 16,
             ),
             Expanded(child: Image.asset("assets/pets.jpg")),
           ],
