@@ -98,6 +98,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               obscureText: true,
                             ),
                             Visibility(
+                              visible: !wanttoJoin,
+                              child: TextButton(
+                                onPressed: () {
+                                  forgotMyPassword();
+                                },
+                                child: Text("Esqueci minha senha."),
+                              ),
+                            ),
+                            Visibility(
                               visible: wanttoJoin,
                               child: Column(
                                 children: [
@@ -245,7 +254,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         .then((String? erro) {
       if (erro == null) {
         showSnackBar(
+<<<<<<< HEAD
             context: context, text: "Conta criada com sucesso.", isErro: false);
+=======
+            context: context, text: "Conta criada com sucesso", isErro: false);
+>>>>>>> cabe0cd474de54982ff5ab1def5942f7501cd2ae
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -256,5 +269,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
         showSnackBar(context: context, text: erro);
       }
     });
+  }
+
+  forgotMyPassword() {
+    String email = _emailController.text;
+    showDialog(
+        context: context,
+        builder: (context) {
+          TextEditingController changeMyPasswordController =
+              TextEditingController(text: email);
+          return AlertDialog(
+            title: const Text("Confirme o E-mail de redefinição de senha"),
+            content: TextFormField(
+              controller: changeMyPasswordController,
+              decoration:
+                  const InputDecoration(label: Text("Confirme o E-mail.")),
+            ),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(32))),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    authService
+                        .changeMyPassword(
+                            email: changeMyPasswordController.text)
+                        .then(
+                      (String? erro) {
+                        if (erro == null) {
+                          showSnackBar(
+                            context: context,
+                            text: "E-mail de redefinição enviado!",
+                            isErro: false,
+                          );
+                        } else {
+                          showSnackBar(context: context, text: erro);
+                        }
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                  child: const Text("Redefinir senha"))
+            ],
+          );
+        });
   }
 }
