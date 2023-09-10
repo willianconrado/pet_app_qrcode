@@ -10,12 +10,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Image.asset("assets/logo_pet.png"),
         title: const Text(
           "Pet Finder",
           style: TextStyle(color: Colors.purple, fontSize: 40),
         ),
         elevation: 0,
-        centerTitle: true,
+        centerTitle: false,
         backgroundColor: Colors.transparent,
         actions: <Widget>[
           TextButton(
@@ -24,20 +25,24 @@ class HomePage extends StatelessWidget {
             child: const Icon(Icons.qr_code),
           ),
         ],
-        leading: Image.asset("assets/logo_pet.png"),
       ),
       body: Container(
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              child: Image.asset("assets/banner_home.png"),
-              margin: const EdgeInsets.all(0.1),
-              height: 180.0,
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/banner_home.png"),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(16))),
+              ),
             ),
             const SizedBox(
-              height: 16,
+              height: 8,
             ),
             const Text(
               "Categorias",
@@ -46,6 +51,9 @@ class HomePage extends StatelessWidget {
                 fontSize: 25,
                 color: Colors.purple,
               ),
+            ),
+            const SizedBox(
+              height: 8,
             ),
             CategoryList(),
             const SizedBox(
@@ -62,17 +70,30 @@ class HomePage extends StatelessWidget {
                     color: Colors.purple,
                   ),
                 ),
-                Container(
+                SizedBox(
                   height: 32,
                   child: FloatingActionButton(
-                      child: const Icon(Icons.add), onPressed: () {}),
+                      elevation: 1,
+                      child: const Icon(Icons.add),
+                      onPressed: () {}),
                 ),
               ],
             ),
-            SizedBox(
-              height: 16,
+            const SizedBox(
+              height: 8,
             ),
-            Expanded(child: Image.asset("assets/pets.jpg")),
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/pets.jpg"),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(16))),
+              ),
+            ),
+
+            //Expanded(child: Image.asset("assets/pets.jpg")),
           ],
         ),
       ),

@@ -17,14 +17,21 @@ class CategoryItem extends StatelessWidget {
         Container(
           height: 70,
           width: 70,
-          margin: const EdgeInsets.all(6),
-          padding: const EdgeInsets.all(7),
+          margin: const EdgeInsets.all(5),
           child: Material(
             elevation: 2,
             shape: const CircleBorder(),
             clipBehavior: Clip.antiAliasWithSaveLayer,
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                //Implementar a condição: Se não tiver pet cadastrado apresentar a mensagem, senão ir para a pagina do objeto cliclado
+
+                final snackBar = SnackBar(
+                  content: const Text("Você não possui nenhum pet cadastrado."),
+                  backgroundColor: Colors.red[400],
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
               child: Image(
                 image: AssetImage(image),
                 fit: BoxFit.cover,
