@@ -26,19 +26,118 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: Container(
-        padding: const EdgeInsets.all(20),
+      body: ListView(
+        padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage("assets/banner_home.png"),
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            ),
+            height: 200,
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          const Text(
+            "Categorias",
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 25,
+              color: Colors.purple,
+            ),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          CategoryList(),
+          const SizedBox(
+            height: 16,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Meus Pets",
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 25,
+                  color: Colors.purple,
+                ),
+              ),
+              SizedBox(
+                height: 32,
+                child: FloatingActionButton(
+                    elevation: 1,
+                    child: const Icon(Icons.add),
+                    onPressed: () {}),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage("assets/pets.jpg"),
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            ),
+            height: 200,
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          const Text(
+            "Adicione um animalzinho.",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 25,
+            ),
+          ),
+          const Text(
+            "Você ainda não possui nenhum pet cadastrado. \n Cadastre em sua conta!",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Colors.blueGrey,
+            ),
+          ),
+          const SizedBox(
+            height: 16,
+          ),
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.fill,
+                image: AssetImage("assets/banner_indication.png"),
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(16)),
+            ),
+            height: 200,
+          ),
+        ],
+      ),
+
+      /*Container(
+        padding: const EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
               child: Container(
                 decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage("assets/banner_home.png"),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.all(Radius.circular(16))),
+                  image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: AssetImage("assets/banner_home.png"),
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(16)),
+                ),
               ),
             ),
             const SizedBox(
@@ -92,11 +191,27 @@ class HomePage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(16))),
               ),
             ),
-
-            //Expanded(child: Image.asset("assets/pets.jpg")),
+            const SizedBox(
+              height: 16,
+            ),
+            const Text(
+              "Adicione um animalzinho.",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+              ),
+            ),
+            const Text(
+              "Você ainda não possui nenhum pet cadastrado. \n Cadastre em sua conta!",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.blueGrey,
+              ),
+            ),
           ],
         ),
-      ),
+      ),*/
     );
   }
 }

@@ -21,7 +21,7 @@ class _SchedulePageState extends State<SchedulePage> {
         title: const Text(
           'Meus Eventos',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.purple,
           ),
         ),
         backgroundColor: Colors.white.withOpacity(0),
@@ -32,23 +32,23 @@ class _SchedulePageState extends State<SchedulePage> {
           TableCalendar(
             headerStyle: const HeaderStyle(
               titleCentered: true,
-              formatButtonVisible: true,
+              formatButtonVisible: false,
               headerPadding: EdgeInsets.zero,
               formatButtonShowsNext: true,
               leftChevronIcon: Icon(
                 Icons.chevron_left,
                 size: 24,
-                color: Colors.black54,
+                color: Colors.purple,
               ),
               rightChevronIcon: Icon(
                 Icons.chevron_right,
                 size: 24,
-                color: Colors.black54,
+                color: Colors.purple,
               ),
             ),
             calendarStyle: const CalendarStyle(
               selectedDecoration: BoxDecoration(
-                color: Colors.purple,
+                color: Colors.purpleAccent,
                 shape: BoxShape.circle,
               ),
             ),

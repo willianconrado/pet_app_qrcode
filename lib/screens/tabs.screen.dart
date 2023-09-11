@@ -24,19 +24,19 @@ class TabsPage extends StatelessWidget {
           labelPadding: EdgeInsets.symmetric(horizontal: 4.0),
           tabs: [
             Tab(
-              icon: Icon(Icons.home), // Ícone para a HomePage
+              icon: Icon(Icons.home),
               text: 'Início',
             ),
             Tab(
-              icon: Icon(Icons.calendar_today), // Ícone para a SchedulePage
+              icon: Icon(Icons.calendar_today),
               text: 'Agenda',
             ),
             Tab(
-              icon: Icon(Icons.notifications), // Ícone para a NotificationsPage
+              icon: Icon(Icons.notifications),
               text: 'Notificações',
             ),
             Tab(
-              icon: Icon(Icons.person), // Ícone para a ProfilePage
+              icon: Icon(Icons.person),
               text: 'Perfil',
             ),
           ],

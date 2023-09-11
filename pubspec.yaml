@@ -81,6 +81,7 @@ flutter:
      - assets/category_dog_1.jpg
      - assets/category_dog.jpg
      - assets/category_doctor_1.jpg
+     - assets/banner_indication.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
