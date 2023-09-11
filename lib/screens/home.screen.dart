@@ -10,13 +10,26 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Image.asset("assets/logo_pet.png"),
-        title: const Text(
-          "Pet Finder",
-          style: TextStyle(color: Colors.purple, fontSize: 40),
+        automaticallyImplyLeading: false,
+        title: Row(
+          children: [
+            Image.asset(
+              "assets/logo_pet.png",
+              width: 60,
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            const Text(
+              "Pet Finder",
+              style: TextStyle(
+                color: Colors.purple,
+                fontSize: 30,
+              ),
+            ),
+          ],
         ),
         elevation: 0,
-        centerTitle: false,
         backgroundColor: Colors.transparent,
         actions: <Widget>[
           TextButton(
@@ -91,7 +104,7 @@ class HomePage extends StatelessWidget {
             height: 200,
           ),
           const SizedBox(
-            height: 16,
+            height: 8,
           ),
           const Text(
             "Adicione um animalzinho.",
@@ -109,7 +122,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           const SizedBox(
-            height: 16,
+            height: 32,
           ),
           Container(
             decoration: const BoxDecoration(
