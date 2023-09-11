@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pet_app_qrcode/_core/show.password.confirmation.dialog.dart';
+import 'package:pet_app_qrcode/screens/profile.screen.dart';
+import 'package:pet_app_qrcode/screens/tabs.screen.dart';
+import 'package:pet_app_qrcode/services/service.auth.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -29,115 +33,129 @@ class _MyWidgetState extends State<SettingsScreen> {
               color: Colors.black, size: 18),
         ),
       ),
-      body: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(10),
-            height: 300, //tamanho do card
-            child: Card(
-              //card da listview de notificações ate seja um parceiro
-              child: ListView(
-                children: [
-                  const SizedBox(height: 20),
-                  ListTile(
-                    leading: const Icon(
-                      FontAwesomeIcons.bell,
-                      color: Colors.purple,
-                      size: 25,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              height: 300, //tamanho do card
+              child: Card(
+                //card da listview de notificações ate seja um parceiro
+                child: ListView(
+                  children: [
+                    const SizedBox(height: 20),
+                    ListTile(
+                      leading: const Icon(
+                        FontAwesomeIcons.bell,
+                        color: Colors.purple,
+                        size: 25,
+                      ),
+                      title: const Text('Notificações'),
+                      trailing:
+                          const Icon(FontAwesomeIcons.angleRight, size: 20),
+                      onTap: () {},
                     ),
-                    title: const Text('Notificações'),
-                    trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
-                    onTap: () {},
-                  ),
-                  ListTile(
-                    leading: const Icon(
-                      FontAwesomeIcons.star,
-                      color: Colors.orange,
-                      size: 25,
+                    ListTile(
+                      leading: const Icon(
+                        FontAwesomeIcons.star,
+                        color: Colors.orange,
+                        size: 25,
+                      ),
+                      title: const Text('Avalie nosso APP'),
+                      trailing:
+                          const Icon(FontAwesomeIcons.angleRight, size: 20),
+                      onTap: () {},
                     ),
-                    title: const Text('Avalie nosso APP'),
-                    trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
-                    onTap: () {},
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ListTile(
-                    leading: const Icon(
-                      FontAwesomeIcons.circleInfo,
-                      color: Colors.green,
-                      size: 25,
+                    const SizedBox(
+                      height: 10,
                     ),
-                    title: const Text('Sobre o PetFinder'),
-                    trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
-                    onTap: () {},
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  ListTile(
-                    leading: const Icon(
-                      FontAwesomeIcons.rocket,
-                      color: Colors.red,
-                      size: 25,
+                    ListTile(
+                      leading: const Icon(
+                        FontAwesomeIcons.circleInfo,
+                        color: Colors.green,
+                        size: 25,
+                      ),
+                      title: const Text('Sobre o PetFinder'),
+                      trailing:
+                          const Icon(FontAwesomeIcons.angleRight, size: 20),
+                      onTap: () {},
                     ),
-                    title: const Text('Seja um parceiro'),
-                    trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
-                    onTap: () {},
-                  ),
-                ],
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    ListTile(
+                      leading: const Icon(
+                        FontAwesomeIcons.rocket,
+                        color: Colors.red,
+                        size: 25,
+                      ),
+                      title: const Text('Seja um parceiro'),
+                      trailing:
+                          const Icon(FontAwesomeIcons.angleRight, size: 20),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: Card(
-                child: ListTile(
-              leading: const Icon(
-                FontAwesomeIcons.gear,
-                color: Colors.grey,
-                size: 25,
-              ),
-              title: const Text('Termos de Uso'),
-              trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
-              onTap: () {},
-            )),
-          ),
-          Container(
-            padding: const EdgeInsets.all(10),
-            child: Card(
-                child: ListTile(
-              leading: const Icon(
-                FontAwesomeIcons.landmark,
-                color: Colors.grey,
-                size: 25,
-              ),
-              title: const Text('Política de Privacidade'),
-              trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
-              onTap: () {},
-            )),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          const Text(
-            '3.5.2',
-            style: TextStyle(fontSize: 18),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          TextButton(
-            onPressed: () {},
-            child: const Text('SAIR DA MINHA CONTA',
-                style: TextStyle(color: Colors.orange, fontSize: 15)),
-          ),
-          TextButton(
-            onPressed: () {},
-            child: const Text('REMOVER CONTA',
-                style: TextStyle(color: Colors.red, fontSize: 15)),
-          ),
-        ],
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: Card(
+                  child: ListTile(
+                leading: const Icon(
+                  FontAwesomeIcons.gear,
+                  color: Colors.grey,
+                  size: 25,
+                ),
+                title: const Text('Termos de Uso'),
+                trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
+                onTap: () {},
+              )),
+            ),
+            Container(
+              padding: const EdgeInsets.all(10),
+              child: Card(
+                  child: ListTile(
+                leading: const Icon(
+                  FontAwesomeIcons.landmark,
+                  color: Colors.grey,
+                  size: 25,
+                ),
+                title: const Text('Política de Privacidade'),
+                trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
+                onTap: () {},
+              )),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text(
+              '3.5.2',
+              style: TextStyle(fontSize: 18),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            TextButton(
+              onPressed: () {
+                AuthService().LogOut().then((String? erro) {
+                  if (erro == null) {
+                    Navigator.pop(context);
+                  }
+                });
+              },
+              child: const Text('SAIR DA MINHA CONTA',
+                  style: TextStyle(color: Colors.orange, fontSize: 15)),
+            ),
+            TextButton(
+              onPressed: () {
+                showPasswordConfirmationDialog(context: context, email: "");
+              },
+              child: const Text('REMOVER CONTA',
+                  style: TextStyle(color: Colors.red, fontSize: 15)),
+            ),
+          ],
+        ),
       ),
     );
   }

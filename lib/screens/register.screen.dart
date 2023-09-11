@@ -225,16 +225,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     required String password,
   }) {
     authService.userJoin(email: email, password: password).then((String? erro) {
-      if (erro == null) {
-        showSnackBar(
-            context: context, text: "Conta logada com sucesso.", isErro: false);
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const TabsPage(),
-          ),
-        );
-      } else {
+      if (erro != null) {
         showSnackBar(context: context, text: erro);
       }
     });
@@ -252,17 +243,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       name: name,
     )
         .then((String? erro) {
-      if (erro == null) {
-        showSnackBar(
-            context: context, text: "Conta criada com sucesso.", isErro: false);
-
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const TabsPage(),
-          ),
-        );
-      } else {
+      if (erro != null) {
         showSnackBar(context: context, text: erro);
       }
     });
