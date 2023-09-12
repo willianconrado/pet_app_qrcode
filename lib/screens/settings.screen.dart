@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_app_qrcode/_core/show.password.confirmation.dialog.dart';
-import 'package:pet_app_qrcode/screens/profile.screen.dart';
-import 'package:pet_app_qrcode/screens/tabs.screen.dart';
 import 'package:pet_app_qrcode/services/service.auth.dart';
 
 class SettingsScreen extends StatefulWidget {

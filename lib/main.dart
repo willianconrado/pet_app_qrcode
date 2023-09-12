@@ -46,7 +46,7 @@ class MapRouter extends StatelessWidget {
           if (snapshot.hasData) {
             return const TabsPage();
           } else {
-            return const RegisterScreen();
+            return const LoginPage();
           }
         }
       },

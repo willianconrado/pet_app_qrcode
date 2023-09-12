@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_app_qrcode/screens/register.screen.dart';
+import 'package:pet_app_qrcode/services/service.auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -110,15 +111,16 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextButton(
                     onPressed: () {
                       if (checkValue) {
-                        _validatingCheckbox();
+                        _validatingCheckbox();  
+                        AuthService().signInWithGoogle();
                       } else {
                         const snackBar = SnackBar(
                           content: Text(
                               "Assine os termos antes de logar na sua conta!"),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        print("Testando");
                       }
+                    
                     },
                     child: Row(
                       children: <Widget>[
