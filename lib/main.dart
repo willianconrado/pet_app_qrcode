@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:pet_app_qrcode/screens/home.screen.dart';
-import 'package:pet_app_qrcode/screens/register.screen.dart';
 import 'package:pet_app_qrcode/screens/tabs.screen.dart';
 import 'firebase_options.dart';
 import 'screens/login.screen.dart';

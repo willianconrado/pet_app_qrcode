@@ -63,9 +63,10 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   child: TextButton(
-                    onPressed: () {
-                      if (checkValue) {
+                    onPressed: () async {
+                      if (checkValue)  {
                         _validatingCheckbox();
+                      
                       } else {
                         const snackBar = SnackBar(
                           content: Text(

@@ -1,13 +1,27 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pet_app_qrcode/screens/address.screen.dart';
 import 'package:pet_app_qrcode/screens/my.acc.dart';
 import 'package:pet_app_qrcode/screens/settings.screen.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
   @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  User? user;
+  String? email;
+
+  @override
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.currentUser;
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +46,18 @@ class ProfilePage extends StatelessWidget {
             ),
             child: Column(
               children: <Widget>[
-                const SizedBox(height: 70),
+                 Padding(
+                  padding: const EdgeInsets.only(top: 60),
+                  child: Text(
+                     "Olá, ${user?.displayName ?? ''}",
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
                 ListTile(
                   leading: const Icon(
                     FontAwesomeIcons.user,

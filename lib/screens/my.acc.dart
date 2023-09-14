@@ -1,7 +1,10 @@
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pet_app_qrcode/main.dart';
 
 class MyAcc extends StatefulWidget {
   const MyAcc({Key? key}) : super(key: key);
@@ -10,7 +13,12 @@ class MyAcc extends StatefulWidget {
   State<MyAcc> createState() => _MyWidgetState();
 }
 
+final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
 class _MyWidgetState extends State<MyAcc> {
+  User? user;
+  String? email;
+
   XFile? imageFile;
   final ImagePicker _picker = ImagePicker();
 
@@ -24,6 +32,12 @@ class _MyWidgetState extends State<MyAcc> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    user = FirebaseAuth.instance.currentUser;
+    email = user?.email;
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
@@ -87,6 +101,7 @@ class _MyWidgetState extends State<MyAcc> {
                               filled: true,
                               border: InputBorder.none,
                             ),
+                            initialValue: user?.displayName ?? '',
                           ),
                         ],
                       ),
@@ -117,6 +132,45 @@ class _MyWidgetState extends State<MyAcc> {
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'E-mail',
+                            style: TextStyle(color: Colors.grey[500]),
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          TextFormField(
+                            decoration: InputDecoration(
+                              prefixIcon: const Icon(FontAwesomeIcons.envelope),
+                              fillColor: Colors.grey[200],
+                              filled: true,
+                              border: InputBorder.none,
+                            ),
+                            initialValue: email ?? '',
+                          ),
+                        ],
+                      ),
+                    ),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(double.infinity, 39),
+                          ),
+                          child: const Text(
+                            "Salvar",
+                            style: TextStyle(fontSize: 17),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -126,6 +180,7 @@ class _MyWidgetState extends State<MyAcc> {
       ),
     );
   }
+
 
   Widget bottomSheet() {
     return Container(
@@ -173,15 +228,15 @@ class _MyWidgetState extends State<MyAcc> {
   Widget imageProfile(context) {
     return Stack(
       children: <Widget>[
-         Center(
+        Center(
           child: CircleAvatar(
             radius: 63,
             backgroundColor: Colors.black,
             child: CircleAvatar(
               radius: 59,
               backgroundImage: imageFile == null
-                ? const AssetImage("assets/noprofilepicture.png")
-                : FileImage(File(imageFile!.path)) as ImageProvider,
+                  ? const AssetImage("assets/noprofilepicture.png")
+                  : FileImage(File(imageFile!.path)) as ImageProvider,
             ),
           ),
         ),

@@ -1,9 +1,10 @@
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   Future<String?> userJoin(
       {required String email, required String password}) async {
@@ -30,8 +31,11 @@ class AuthService {
       UserCredential userCredential = await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password);
 
+      // Atualize o nome do usuário no Firebase Auth
       await userCredential.user!.updateDisplayName(name);
-      print("Funfou");
+
+      // Crie um documento de usuário no Firestore
+      await createUserInFirestore(userCredential.user!.uid, name, email);
     } on FirebaseAuthException catch (e) {
       switch (e.code) {
         case "email-already-in-use":
@@ -69,29 +73,59 @@ class AuthService {
         password: password,
       );
       await _firebaseAuth.currentUser!.delete();
+      
     } on FirebaseAuthException catch (e) {
       return e.code;
     }
     return null;
   }
 
+  Future<UserCredential?> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-   //googleSignIn 
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
 
-Future<UserCredential?> signInWithGoogle() async {
-  try {
-  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-  
-  final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-  
-  final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth?.accessToken,
-    idToken: googleAuth?.idToken,
-  );
-  return await FirebaseAuth.instance.signInWithCredential(credential);
-} on FirebaseAuthException catch (e) {
-   print("Error Sign with Google $e");
-}
-  return null;
-}
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      // Faça o login no Firebase Auth com a credencial do Google
+      final userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      // Verifique se o usuário já existe no Firestore
+      final userDoc = await _firestore
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .get();
+      if (!userDoc.exists) {
+        // Se o usuário não existir no Firestore, crie um documento de usuário
+        await createUserInFirestore(
+            userCredential.user!.uid,
+            userCredential.user!.displayName ?? '',
+            userCredential.user!.email ?? '');
+      }
+
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      print("Error Sign with Google $e");
+    }
+    return null;
+  }
+
+  Future<void> createUserInFirestore(
+      String uid, String name, String email) async {
+    try {
+      await _firestore.collection('users').doc(uid).set({
+        'name': name,
+        'email': email,
+        // Outros campos de usuário, se necessário
+      });
+    } catch (e) {
+      print("Erro ao criar usuário no Firestore: $e");
+    }
+  }
 }

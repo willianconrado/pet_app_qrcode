@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_app_qrcode/_core/my.snackbar.dart';
 import '../components/authentication.input.decoration.dart';
 
 import '../services/service.auth.dart';
-import 'tabs.screen.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -227,6 +227,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     authService.userJoin(email: email, password: password).then((String? erro) {
       if (erro != null) {
         showSnackBar(context: context, text: erro);
+      } else {
+        Navigator.pop(context);
       }
     });
   }
@@ -245,6 +247,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
         .then((String? erro) {
       if (erro != null) {
         showSnackBar(context: context, text: erro);
+      } else {
+        User? currentUser = FirebaseAuth.instance.currentUser;
+        if (currentUser != null) {
+          authService.createUserInFirestore(currentUser.uid, name, email);
+        }
+        Navigator.pop(context);
       }
     });
   }
