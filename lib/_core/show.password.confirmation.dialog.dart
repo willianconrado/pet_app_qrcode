@@ -30,18 +30,19 @@ showPasswordConfirmationDialog({
         ),
         actions: [
           TextButton(
-              onPressed: () {
-                AuthService()
-                    .removeAccount(
-                        password: passwordConfirmationController.text)
-                    .then((String? erro) {
-                  if (erro == null) {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  }
-                });
-              },
-              child: const Text("Excluir Conta"))
+            onPressed: () {
+              AuthService()
+                  .removeAccount(password: passwordConfirmationController.text)
+                  
+                  .then((String? erro) {
+                if (erro == null) {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                }
+              });
+            },
+            child: const Text("Excluir Conta"),
+          )
         ],
       );
     },

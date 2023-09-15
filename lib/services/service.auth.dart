@@ -1,3 +1,5 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -72,8 +74,11 @@ class AuthService {
         email: _firebaseAuth.currentUser!.email!,
         password: password,
       );
+       final String uid = _firebaseAuth.currentUser!.uid;
       await _firebaseAuth.currentUser!.delete();
-      
+
+      final firestore = FirebaseFirestore.instance;
+       await firestore.collection('users').doc(uid).delete();
     } on FirebaseAuthException catch (e) {
       return e.code;
     }
@@ -91,8 +96,6 @@ class AuthService {
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-
-      // Faça o login no Firebase Auth com a credencial do Google
       final userCredential =
           await FirebaseAuth.instance.signInWithCredential(credential);
 
@@ -102,7 +105,6 @@ class AuthService {
           .doc(userCredential.user!.uid)
           .get();
       if (!userDoc.exists) {
-        // Se o usuário não existir no Firestore, crie um documento de usuário
         await createUserInFirestore(
             userCredential.user!.uid,
             userCredential.user!.displayName ?? '',
