@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:pet_app_qrcode/widgets/category-item.widget.dart';
 import 'package:pet_app_qrcode/widgets/category-list.widget.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +61,7 @@ class HomePage extends StatelessWidget {
             height: 8,
           ),
           const Text(
-            "Categorias",
+            "Serviços",
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 25,
@@ -74,7 +79,7 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                "Meus Pets",
+                "Meus Pets (0)",
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                   fontSize: 25,

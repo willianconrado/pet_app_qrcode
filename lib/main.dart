@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:pet_app_qrcode/screens/my_address.screen.dart';
 import 'package:pet_app_qrcode/screens/tabs.screen.dart';
 import 'firebase_options.dart';
+import 'screens/googlemaps_address.screen.dart';
 import 'screens/login.screen.dart';
 
 void main() async {
@@ -10,6 +13,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Geolocator.openAppSettings();
 
   runApp(const MyApp());
 }
@@ -25,7 +31,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
       ),
       debugShowCheckedModeBanner: false,
-      home: const MapRouter(),
+      //home: const TabsPage(),
+      home: const GoogleMapsAddressLocation(),
     );
   }
 }

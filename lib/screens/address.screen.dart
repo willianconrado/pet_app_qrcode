@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:pet_app_qrcode/screens/my_address.screen.dart';
 
-class Address extends StatelessWidget {
+class Address extends StatefulWidget {
   const Address({super.key});
+
+  @override
+  State<Address> createState() => _AddressState();
+}
+
+class _AddressState extends State<Address> {
+  double? latitude;
+  double? longitude;
+  String? address;
 
   @override
   Widget build(BuildContext context) {
@@ -52,23 +64,7 @@ class Address extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 50,
-                ),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  child: Card(
-                    elevation: 0,
-                    color: Colors.grey[200],
-                    child: ListTile(
-                      leading: const Icon(
-                        FontAwesomeIcons.magnifyingGlass,
-                        color: Colors.grey,
-                        size: 20,
-                      ),
-                      title: const Text('Pesquise seu endereço'),
-                      onTap: () {},
-                    ),
-                  ),
+                  height: 16,
                 ),
                 Container(
                   padding: const EdgeInsets.all(10),
@@ -84,7 +80,9 @@ class Address extends StatelessWidget {
                       subtitle: const Text('Ativar Localização'),
                       trailing:
                           const Icon(FontAwesomeIcons.angleRight, size: 20),
-                      onTap: () {},
+                      onTap: () {
+                        getPosition();
+                      },
                     ),
                   ),
                 ),
@@ -95,7 +93,12 @@ class Address extends StatelessWidget {
                   height: 35,
                   width: 350,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyAddress()));
+                    },
                     child: const Text(
                       'Adicionar novo endereço',
                     ),
@@ -122,5 +125,20 @@ class Address extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  getPosition() async {
+    LocationPermission permission = await Geolocator.requestPermission();
+    Position position = await Geolocator.getCurrentPosition();
+    setState(() {
+      latitude = position.latitude;
+      longitude = position.longitude;
+    });
+
+    List<Placemark> locations =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    if (locations != null) {
+      print(locations[0]);
+    }
   }
 }
