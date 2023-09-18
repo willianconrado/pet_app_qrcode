@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:pet_app_qrcode/screens/address.screen.dart';
 import 'package:pet_app_qrcode/screens/my.acc.dart';
 import 'package:pet_app_qrcode/screens/settings.screen.dart';
+import 'my.acc.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -15,6 +19,9 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   User? user;
   String? email;
+
+   XFile? imageFile;
+  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
@@ -116,7 +123,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
-          const Positioned(
+           Positioned(
             top: 0,
             left: 0,
             right: 0,
@@ -127,6 +134,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: CircleAvatar(
                   backgroundColor: Colors.greenAccent,
                   radius: 55,
+                    backgroundImage: imageFile == null
+                  ?  AssetImage("assets/noprofilepicture.png")
+                  : FileImage(File(imageFile!.path)) as ImageProvider,
                 ),
               ),
             ),

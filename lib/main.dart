@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       //home: const TabsPage(),
-      home: const GoogleMapsAddressLocation(),
+      home: const TabsPage(),
     );
   }
 }

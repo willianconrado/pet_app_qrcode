@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:pet_app_qrcode/main.dart';
 
 class MyAcc extends StatefulWidget {
   const MyAcc({Key? key}) : super(key: key);
@@ -16,13 +17,15 @@ class MyAcc extends StatefulWidget {
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 class _MyWidgetState extends State<MyAcc> {
+  final FirebaseStorage storage = FirebaseStorage.instance;
+  String? imageUrl;
+
   User? user;
   String? email;
-
   XFile? imageFile;
   final ImagePicker _picker = ImagePicker();
 
-  void _takePhoto(ImageSource source) async {
+  Future _takePhoto(ImageSource source) async {
     final XFile? pickedFile = await _picker.pickImage(source: source);
     if (pickedFile != null) {
       setState(() {
@@ -30,6 +33,29 @@ class _MyWidgetState extends State<MyAcc> {
       });
     }
   }
+
+  Future<void> uploadImageToFirebase(BuildContext context) async {
+  try {
+    FirebaseStorage storage = FirebaseStorage.instance;
+    String ref = 'images/img-${DateTime.now().toString()}.png';
+    Reference storageRef = storage.ref().child(ref);
+
+    // Faça o upload do arquivo para o Firebase Storage
+    await storageRef.putFile(imageFile as File);
+
+    // Obtenha a URL da imagem carregada
+    String downloadURL = await storageRef.getDownloadURL();
+
+    setState(() {
+      imageUrl = downloadURL; // Atualize o estado com a URL da imagem
+    });
+
+    print('Imagem enviada com sucesso! URL: $downloadURL');
+  } catch (e) {
+    print('Erro ao enviar imagem: $e');
+  }
+}
+
 
   @override
   void initState() {
@@ -171,6 +197,21 @@ class _MyWidgetState extends State<MyAcc> {
                         ),
                       ),
                     ),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                          onPressed: () => uploadImageToFirebase(context),
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: const Size(double.infinity, 39),
+                          ),
+                          child: const Text(
+                            "upload image",
+                            style: TextStyle(fontSize: 17),
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -180,7 +221,6 @@ class _MyWidgetState extends State<MyAcc> {
       ),
     );
   }
-
 
   Widget bottomSheet() {
     return Container(
@@ -234,9 +274,9 @@ class _MyWidgetState extends State<MyAcc> {
             backgroundColor: Colors.black,
             child: CircleAvatar(
               radius: 59,
-              backgroundImage: imageFile == null
-                  ? const AssetImage("assets/noprofilepicture.png")
-                  : FileImage(File(imageFile!.path)) as ImageProvider,
+              backgroundImage: imageUrl != null
+                ? NetworkImage(imageUrl!)
+                : const AssetImage("assets/noprofilepicture.png") as ImageProvider,
             ),
           ),
         ),
