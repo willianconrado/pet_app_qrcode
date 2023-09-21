@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -17,16 +17,30 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+
+   String? userProfileImageUrl;
   User? user;
   String? email;
 
    XFile? imageFile;
-  final ImagePicker _picker = ImagePicker();
 
   @override
   void initState() {
     super.initState();
     user = FirebaseAuth.instance.currentUser;
+
+    
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(user?.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        setState(() {
+          userProfileImageUrl = documentSnapshot.get('profileImageUrl');
+        });
+      }
+    });
   }
 
   Widget build(BuildContext context) {
@@ -134,9 +148,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: CircleAvatar(
                   backgroundColor: Colors.greenAccent,
                   radius: 55,
-                    backgroundImage: imageFile == null
-                  ?  const AssetImage("assets/noprofilepicture.png")
-                  : FileImage(File(imageFile!.path)) as ImageProvider,
+                    backgroundImage: userProfileImageUrl != null
+                ? NetworkImage(userProfileImageUrl!) 
+                : const AssetImage("assets/noprofilepicture.png") as ImageProvider,
                 ),
               ),
             ),
