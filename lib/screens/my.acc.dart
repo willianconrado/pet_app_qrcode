@@ -38,6 +38,7 @@ class _MyWidgetState extends State<MyAcc> {
 
   User? user;
   String? email;
+  XFile? _image;
 
   Future<void> _takePhoto(ImageSource source) async {
     try {
@@ -51,6 +52,7 @@ class _MyWidgetState extends State<MyAcc> {
       await updateUserProfileImage(user!.uid, downloadUrl);
 
       setState(() {
+        _image = XFile(image.path);
       });
     } catch (e) {
       print(e);
@@ -271,7 +273,9 @@ class _MyWidgetState extends State<MyAcc> {
             backgroundColor: Colors.black,
             child: CircleAvatar(
               radius: 59,
-              backgroundImage: widget.profileImage, // Use a imagem passada aqui
+              backgroundImage: userProfileImageUrl != null
+                ? NetworkImage(userProfileImageUrl!) 
+                : const AssetImage("assets/noprofilepicture.png") as ImageProvider,  
             ),
           ),
         ),
