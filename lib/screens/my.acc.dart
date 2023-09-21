@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,7 +7,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MyAcc extends StatefulWidget {
-  const MyAcc({Key? key}) : super(key: key);
+  final ImageProvider? profileImage;
+
+  const MyAcc({Key? key, this.profileImage}) : super(key: key);
 
   @override
   State<MyAcc> createState() => _MyWidgetState();
@@ -17,51 +18,62 @@ class MyAcc extends StatefulWidget {
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 class _MyWidgetState extends State<MyAcc> {
+
   final FirebaseStorage storage = FirebaseStorage.instance;
-  String? imageUrl;
+  String? userProfileImageUrl;
+
+  Future<String> uploadImageToStorage(String userId, XFile imageFile) async {
+    final Reference ref = storage.ref().child('profile_images').child(userId);
+    final UploadTask uploadTask = ref.putFile(File(imageFile.path));
+    final TaskSnapshot snapshot = await uploadTask;
+    final String downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
+  Future<void> updateUserProfileImage(String userId, String imageUrl) async {
+    final CollectionReference users =
+        FirebaseFirestore.instance.collection('users');
+    await users.doc(userId).update({'profileImageUrl': imageUrl});
+  }
 
   User? user;
   String? email;
-  XFile? imageFile;
-  final ImagePicker _picker = ImagePicker();
 
-  Future _takePhoto(ImageSource source) async {
-    final XFile? pickedFile = await _picker.pickImage(source: source);
-    if (pickedFile != null) {
+  Future<void> _takePhoto(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return;
+
+      // Realize o upload da imagem para o Firebase Storage
+      final downloadUrl = await uploadImageToStorage(user!.uid, image);
+
+      // Atualize a URL da imagem de perfil no Firestore
+      await updateUserProfileImage(user!.uid, downloadUrl);
+
       setState(() {
-        imageFile = pickedFile;
       });
+    } catch (e) {
+      print(e);
     }
   }
-
-  Future<void> uploadImageToFirebase(BuildContext context) async {
-  try {
-    FirebaseStorage storage = FirebaseStorage.instance;
-    String ref = 'images/img-${DateTime.now().toString()}.png';
-    Reference storageRef = storage.ref().child(ref);
-
-    // Faça o upload do arquivo para o Firebase Storage
-    await storageRef.putFile(imageFile as File);
-
-    // Obtenha a URL da imagem carregada
-    String downloadURL = await storageRef.getDownloadURL();
-
-    setState(() {
-      imageUrl = downloadURL; // Atualize o estado com a URL da imagem
-    });
-
-    print('Imagem enviada com sucesso! URL: $downloadURL');
-  } catch (e) {
-    print('Erro ao enviar imagem: $e');
-  }
-}
-
 
   @override
   void initState() {
     super.initState();
     user = FirebaseAuth.instance.currentUser;
     email = user?.email;
+
+    FirebaseFirestore.instance
+        .collection('users')
+        .doc(user?.uid)
+        .get()
+        .then((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        setState(() {
+          userProfileImageUrl = documentSnapshot.get('profileImageUrl');
+        });
+      }
+    });
   }
 
   Widget build(BuildContext context) {
@@ -197,21 +209,6 @@ class _MyWidgetState extends State<MyAcc> {
                         ),
                       ),
                     ),
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                          onPressed: () => uploadImageToFirebase(context),
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(double.infinity, 39),
-                          ),
-                          child: const Text(
-                            "upload image",
-                            style: TextStyle(fontSize: 17),
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -274,9 +271,7 @@ class _MyWidgetState extends State<MyAcc> {
             backgroundColor: Colors.black,
             child: CircleAvatar(
               radius: 59,
-              backgroundImage: imageUrl != null
-                ? NetworkImage(imageUrl!)
-                : const AssetImage("assets/noprofilepicture.png") as ImageProvider,
+              backgroundImage: widget.profileImage, // Use a imagem passada aqui
             ),
           ),
         ),

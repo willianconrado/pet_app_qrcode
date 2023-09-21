@@ -135,7 +135,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   backgroundColor: Colors.greenAccent,
                   radius: 55,
                     backgroundImage: imageFile == null
-                  ?  AssetImage("assets/noprofilepicture.png")
+                  ?  const AssetImage("assets/noprofilepicture.png")
                   : FileImage(File(imageFile!.path)) as ImageProvider,
                 ),
               ),
