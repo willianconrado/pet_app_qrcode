@@ -1,6 +1,6 @@
 // Aqui ficara a pagina principal do app
 import 'package:flutter/material.dart';
-import 'package:pet_app_qrcode/widgets/category-item.widget.dart';
+import 'package:pet_app_qrcode/screens/activate.pin.dart';
 import 'package:pet_app_qrcode/widgets/category-list.widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -91,7 +91,14 @@ class _HomePageState extends State<HomePage> {
                 child: FloatingActionButton(
                     elevation: 1,
                     child: const Icon(Icons.add),
-                    onPressed: () {}),
+                    onPressed: () {
+                       Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ActivePin(),
+                      ),
+                    );
+                    }),
               ),
             ],
           ),

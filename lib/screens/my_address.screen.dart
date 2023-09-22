@@ -164,7 +164,7 @@ class MyAddress extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: ElevatedButton(
                         onPressed: () {},
                         child: const Text('Definir endereço'),

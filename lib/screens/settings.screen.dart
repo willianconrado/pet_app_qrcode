@@ -136,7 +136,7 @@ class _MyWidgetState extends State<SettingsScreen> {
             ),
             TextButton(
               onPressed: () {
-                AuthService().LogOut().then((String? erro) {
+                AuthService().logOut().then((String? erro) {
                   if (erro == null) {
                     Navigator.pop(context);
                   }

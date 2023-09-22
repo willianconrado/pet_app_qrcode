@@ -45,6 +45,7 @@ class AuthService {
       }
       return e.code;
     }
+    return null;
   }
 
   Future<String?> changeMyPassword({required String email}) async {
@@ -59,7 +60,7 @@ class AuthService {
     return null;
   }
 
-  Future<String?> LogOut() async {
+  Future<String?> logOut() async {
     try {
       await _firebaseAuth.signOut();
     } on FirebaseAuthException catch (e) {

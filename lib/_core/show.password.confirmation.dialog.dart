@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pet_app_qrcode/services/service.auth.dart';
 
-import '../screens/register.screen.dart';
 
 showPasswordConfirmationDialog({
   required BuildContext context,

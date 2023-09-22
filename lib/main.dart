@@ -2,10 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:pet_app_qrcode/screens/my_address.screen.dart';
 import 'package:pet_app_qrcode/screens/tabs.screen.dart';
 import 'firebase_options.dart';
-import 'screens/googlemaps_address.screen.dart';
 import 'screens/login.screen.dart';
 
 void main() async {

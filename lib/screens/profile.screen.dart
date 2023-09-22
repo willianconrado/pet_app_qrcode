@@ -1,4 +1,4 @@
-import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pet_app_qrcode/screens/address.screen.dart';
 import 'package:pet_app_qrcode/screens/my.acc.dart';
 import 'package:pet_app_qrcode/screens/settings.screen.dart';
-import 'my.acc.dart';
-
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -42,7 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
       }
     });
   }
-
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
