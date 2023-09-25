@@ -1,6 +1,7 @@
 // Aqui ficara a pagina principal do app
 import 'package:flutter/material.dart';
 import 'package:pet_app_qrcode/screens/activate.pin.dart';
+import 'package:pet_app_qrcode/screens/qrcode.page.dart';
 import 'package:pet_app_qrcode/widgets/category-list.widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -38,7 +39,14 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
         actions: <Widget>[
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const QrCodePage(),
+                ),
+              );
+            },
             style: TextButton.styleFrom(foregroundColor: Colors.purple),
             child: const Icon(Icons.qr_code),
           ),
@@ -92,12 +100,12 @@ class _HomePageState extends State<HomePage> {
                     elevation: 1,
                     child: const Icon(Icons.add),
                     onPressed: () {
-                       Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ActivePin(),
-                      ),
-                    );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ActivePin(),
+                        ),
+                      );
                     }),
               ),
             ],
