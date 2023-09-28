@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:pet_app_qrcode/screens/my_address.screen.dart';
+import 'package:pet_app_qrcode/screens/profilepage/my_address.screen.dart';
 
 class Address extends StatefulWidget {
   const Address({super.key});

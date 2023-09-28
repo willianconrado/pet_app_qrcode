@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pet_app_qrcode/screens/home.screen.dart';
+import 'package:pet_app_qrcode/screens/homepage/home.screen.dart';
 import 'package:pet_app_qrcode/screens/notifications.screen.dart';
-import 'package:pet_app_qrcode/screens/profile.screen.dart';
+import 'package:pet_app_qrcode/screens/profilepage/profile.screen.dart';
 import 'package:pet_app_qrcode/screens/schedule.screen.dart';
 
 class TabsPage extends StatelessWidget {

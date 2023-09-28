@@ -2,6 +2,7 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pet_app_qrcode/screens/homepage/pet.register.dart';
 
 class ActivePin extends StatefulWidget {
   const ActivePin({super.key});
@@ -68,7 +69,7 @@ class _MyWidgetState extends State<ActivePin> {
                 const SizedBox(
                   height: 30,
                 ),
-              SizedBox(
+                SizedBox(
                   height: 110,
                   width: 380,
                   child: Card(
@@ -80,7 +81,7 @@ class _MyWidgetState extends State<ActivePin> {
                     child: Center(
                       child: ListTile(
                         leading: const Icon(
-                           Icons.qr_code,
+                          Icons.qr_code,
                           color: Colors.grey,
                           size: 27,
                         ),
@@ -127,6 +128,24 @@ class _MyWidgetState extends State<ActivePin> {
                         onTap: () {},
                       ),
                     ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 19,
+                ),
+                TextButton(
+                  onPressed: () {
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const PetRegister(),
+                      ),
+                    );
+                  },
+                  child: const Text(
+                    'PULAR ESTA ETAPA',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Colors.orange, fontSize: 15),
                   ),
                 ),
               ],

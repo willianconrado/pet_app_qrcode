@@ -1,7 +1,7 @@
 // Aqui ficara a pagina principal do app
 import 'package:flutter/material.dart';
-import 'package:pet_app_qrcode/screens/activate.pin.dart';
-import 'package:pet_app_qrcode/screens/qrcode.page.dart';
+import 'package:pet_app_qrcode/screens/homepage/activate.pin.dart';
+import 'package:pet_app_qrcode/screens/homepage/qrcode.page.dart';
 import 'package:pet_app_qrcode/widgets/category-list.widget.dart';
 
 class HomePage extends StatefulWidget {
