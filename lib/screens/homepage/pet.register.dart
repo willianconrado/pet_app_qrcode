@@ -36,78 +36,86 @@ class _PetRegisterState extends State<PetRegister> {
             SizedBox(
               height: 12,
             ),
-            Column(
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.black,
-                  radius: 70,
-                  child: CircleAvatar(
-                    radius: 66,
-                    backgroundImage: AssetImage("assets/dog.png"),
+            Center(
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.black,
+                    radius: 70,
+                    child: CircleAvatar(
+                      radius: 66,
+                      backgroundImage: AssetImage("assets/dog.png"),
+                    ),
                   ),
-                ),
-                Text(
-                  "Cachorro",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                )
-              ],
+                  Text(
+                    "Cachorro",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
             ),
             SizedBox(
               height: 12,
             ),
-            Column(
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.black,
-                  radius: 70,
-                  child: CircleAvatar(
-                    radius: 66,
-                    backgroundImage: AssetImage("assets/cat.png"),
+            Center(
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.black,
+                    radius: 70,
+                    child: CircleAvatar(
+                      radius: 66,
+                      backgroundImage: AssetImage("assets/cat.png"),
+                    ),
                   ),
-                ),
-                Text(
-                  "Gato",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                )
-              ],
+                  Text(
+                    "Gato",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
             ),
             SizedBox(
               height: 12,
             ),
-            Column(
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.black,
-                  radius: 70,
-                  child: CircleAvatar(
-                    radius: 66,
-                    backgroundImage: AssetImage("assets/bird.png"),
+            Center(
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.black,
+                    radius: 70,
+                    child: CircleAvatar(
+                      radius: 66,
+                      backgroundImage: AssetImage("assets/bird.png"),
+                    ),
                   ),
-                ),
-                Text(
-                  "Pássaro",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                )
-              ],
+                  Text(
+                    "Pássaro",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
             ),
             SizedBox(
               height: 20,
             ),
-            Column(
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.black,
-                  radius: 70,
-                  child: CircleAvatar(
-                    radius: 66,
-                    backgroundImage: AssetImage("assets/pig.png"),
+            Center(
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    backgroundColor: Colors.black,
+                    radius: 70,
+                    child: CircleAvatar(
+                      radius: 66,
+                      backgroundImage: AssetImage("assets/pig.png"),
+                    ),
                   ),
-                ),
-                Text(
-                  "Outro",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                )
-              ],
+                  Text(
+                    "Outro",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  )
+                ],
+              ),
             ),
           ],
         ),
