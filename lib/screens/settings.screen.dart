@@ -27,7 +27,7 @@ class _MyWidgetState extends State<SettingsScreen> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Icon(FontAwesomeIcons.chevronLeft,
+          child: const FaIcon(FontAwesomeIcons.chevronLeft,
               color: Colors.black, size: 18),
         ),
       ),
@@ -43,53 +43,53 @@ class _MyWidgetState extends State<SettingsScreen> {
                   children: [
                     const SizedBox(height: 20),
                     ListTile(
-                      leading: const Icon(
+                      leading: const FaIcon(
                         FontAwesomeIcons.bell,
                         color: Colors.purple,
                         size: 25,
                       ),
                       title: const Text('Notificações'),
                       trailing:
-                          const Icon(FontAwesomeIcons.angleRight, size: 20),
+                          const FaIcon(FontAwesomeIcons.angleRight, size: 20),
                       onTap: () {},
                     ),
                     ListTile(
-                      leading: const Icon(
+                      leading: const FaIcon(
                         FontAwesomeIcons.star,
                         color: Colors.orange,
                         size: 25,
                       ),
                       title: const Text('Avalie nosso APP'),
                       trailing:
-                          const Icon(FontAwesomeIcons.angleRight, size: 20),
+                          const FaIcon(FontAwesomeIcons.angleRight, size: 20),
                       onTap: () {},
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     ListTile(
-                      leading: const Icon(
+                      leading: const FaIcon(
                         FontAwesomeIcons.circleInfo,
                         color: Colors.green,
                         size: 25,
                       ),
                       title: const Text('Sobre o PetFinder'),
                       trailing:
-                          const Icon(FontAwesomeIcons.angleRight, size: 20),
+                          const FaIcon(FontAwesomeIcons.angleRight, size: 20),
                       onTap: () {},
                     ),
                     const SizedBox(
                       height: 10,
                     ),
                     ListTile(
-                      leading: const Icon(
+                      leading: const FaIcon(
                         FontAwesomeIcons.rocket,
                         color: Colors.red,
                         size: 25,
                       ),
                       title: const Text('Seja um parceiro'),
                       trailing:
-                          const Icon(FontAwesomeIcons.angleRight, size: 20),
+                          const FaIcon(FontAwesomeIcons.angleRight, size: 20),
                       onTap: () {},
                     ),
                   ],
@@ -100,13 +100,13 @@ class _MyWidgetState extends State<SettingsScreen> {
               padding: const EdgeInsets.all(10),
               child: Card(
                   child: ListTile(
-                leading: const Icon(
+                leading: const FaIcon(
                   FontAwesomeIcons.gear,
                   color: Colors.grey,
                   size: 25,
                 ),
                 title: const Text('Termos de Uso'),
-                trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
+                trailing: const FaIcon(FontAwesomeIcons.angleRight, size: 20),
                 onTap: () {},
               )),
             ),
@@ -114,13 +114,13 @@ class _MyWidgetState extends State<SettingsScreen> {
               padding: const EdgeInsets.all(10),
               child: Card(
                   child: ListTile(
-                leading: const Icon(
+                leading: const FaIcon(
                   FontAwesomeIcons.landmark,
                   color: Colors.grey,
                   size: 25,
                 ),
                 title: const Text('Política de Privacidade'),
-                trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
+                trailing: const FaIcon(FontAwesomeIcons.angleRight, size: 20),
                 onTap: () {},
               )),
             ),

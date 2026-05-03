@@ -93,7 +93,7 @@ class _MyWidgetState extends State<MyAcc> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Icon(FontAwesomeIcons.chevronLeft,
+          child: const FaIcon(FontAwesomeIcons.chevronLeft,
               color: Colors.black, size: 18),
         ),
       ),
@@ -136,7 +136,7 @@ class _MyWidgetState extends State<MyAcc> {
                           TextFormField(
                             decoration: InputDecoration(
                               prefixIcon:
-                                  const Icon(FontAwesomeIcons.circleUser),
+                                  const FaIcon(FontAwesomeIcons.circleUser),
                               fillColor: Colors.grey[200],
                               filled: true,
                               border: InputBorder.none,
@@ -160,7 +160,7 @@ class _MyWidgetState extends State<MyAcc> {
                           ),
                           TextFormField(
                             decoration: InputDecoration(
-                              prefixIcon: const Icon(
+                              prefixIcon: const FaIcon(
                                 FontAwesomeIcons.phone,
                                 size: 17,
                               ),
@@ -186,7 +186,7 @@ class _MyWidgetState extends State<MyAcc> {
                           ),
                           TextFormField(
                             decoration: InputDecoration(
-                              prefixIcon: const Icon(FontAwesomeIcons.envelope),
+                              prefixIcon: const FaIcon(FontAwesomeIcons.envelope),
                               fillColor: Colors.grey[200],
                               filled: true,
                               border: InputBorder.none,
@@ -251,7 +251,7 @@ class _MyWidgetState extends State<MyAcc> {
                 label: const Text("Camera"),
               ),
               TextButton.icon(
-                icon: const Icon(FontAwesomeIcons.images),
+                icon: const FaIcon(FontAwesomeIcons.images),
                 onPressed: () {
                   _takePhoto(ImageSource.gallery);
                 },

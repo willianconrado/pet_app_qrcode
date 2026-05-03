@@ -78,13 +78,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 const SizedBox(height: 12),
                 ListTile(
-                  leading: const Icon(
+                  leading: const FaIcon(
                     FontAwesomeIcons.user,
                     color: Colors.purple,
                     size: 30,
                   ),
                   title: const Text('Minha Conta'),
-                  trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
+                  trailing: const FaIcon(FontAwesomeIcons.angleRight, size: 20),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -98,13 +98,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 10,
                 ),
                 ListTile(
-                    leading: const Icon(
+                    leading: const FaIcon(
                       FontAwesomeIcons.locationDot,
                       color: Colors.green,
                       size: 30,
                     ),
                     title: const Text('Meu Endereço'),
-                    trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
+                    trailing: const FaIcon(FontAwesomeIcons.angleRight, size: 20),
                     onTap: () {
                       Navigator.push(
                           context,
@@ -116,13 +116,13 @@ class _ProfilePageState extends State<ProfilePage> {
                   height: 10,
                 ),
                 ListTile(
-                  leading: const Icon(
+                  leading: const FaIcon(
                     FontAwesomeIcons.gear,
                     color: Colors.orange,
                     size: 30,
                   ),
                   title: const Text('Configurações'),
-                  trailing: const Icon(FontAwesomeIcons.angleRight, size: 20),
+                  trailing: const FaIcon(FontAwesomeIcons.angleRight, size: 20),
                   onTap: () {
                     Navigator.push(
                       context,

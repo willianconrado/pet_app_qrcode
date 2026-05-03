@@ -1,4 +1,3 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -23,7 +22,7 @@ class _MyWidgetState extends State<ActivePin> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Icon(FontAwesomeIcons.chevronLeft,
+          child: const FaIcon(FontAwesomeIcons.chevronLeft,
               color: Colors.black, size: 18),
         ),
       ),
@@ -92,7 +91,7 @@ class _MyWidgetState extends State<ActivePin> {
                         subtitle: const Text(
                             'Já tenho um pingente PINN PET e uero ativar o QR CODE'),
                         trailing:
-                            const Icon(FontAwesomeIcons.angleRight, size: 20),
+                            const FaIcon(FontAwesomeIcons.angleRight, size: 20),
                         onTap: () {},
                       ),
                     ),
@@ -112,7 +111,7 @@ class _MyWidgetState extends State<ActivePin> {
                     elevation: 1,
                     child: Center(
                       child: ListTile(
-                        leading: const Icon(
+                        leading: const FaIcon(
                           FontAwesomeIcons.bagShopping,
                           color: Colors.grey,
                           size: 27,
@@ -124,7 +123,7 @@ class _MyWidgetState extends State<ActivePin> {
                         subtitle: const Text(
                             'instalei o aplicativo e quero solicitar um QR CODE para proteger meu pet.'),
                         trailing:
-                            const Icon(FontAwesomeIcons.angleRight, size: 20),
+                            const FaIcon(FontAwesomeIcons.angleRight, size: 20),
                         onTap: () {},
                       ),
                     ),

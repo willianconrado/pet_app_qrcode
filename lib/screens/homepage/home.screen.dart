@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 25,
-              color: Colors.purple,
+              color: Colors.red,
             ),
           ),
           const SizedBox(

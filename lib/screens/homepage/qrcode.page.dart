@@ -19,7 +19,7 @@ class _QrCodePageState extends State<QrCodePage> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Icon(FontAwesomeIcons.chevronLeft,
+          child: const FaIcon(FontAwesomeIcons.chevronLeft,
               color: Colors.white, size: 18),
         ),
         actions: [

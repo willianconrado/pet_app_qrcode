@@ -20,7 +20,7 @@ class _PetRegisterState extends State<PetRegister> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: const Icon(FontAwesomeIcons.chevronLeft,
+          child: const FaIcon(FontAwesomeIcons.chevronLeft,
               color: Colors.black, size: 18),
         ),
       ),

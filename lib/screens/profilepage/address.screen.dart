@@ -71,15 +71,15 @@ class _AddressState extends State<Address> {
                   child: Card(
                     elevation: 0,
                     child: ListTile(
-                      leading: const Icon(
+                      leading: const FaIcon(
                         FontAwesomeIcons.locationCrosshairs,
-                        color: Colors.grey,
-                        size: 27,
+                        color: Colors.white,
+                        size: 30,
                       ),
                       title: const Text('Usar Localização atual'),
                       subtitle: const Text('Ativar Localização'),
                       trailing:
-                          const Icon(FontAwesomeIcons.angleRight, size: 20),
+                          const FaIcon(FontAwesomeIcons.angleRight, size: 20),
                       onTap: () {
                         getPosition();
                       },
