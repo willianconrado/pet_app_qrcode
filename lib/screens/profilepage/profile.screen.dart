@@ -34,9 +34,13 @@ class _ProfilePageState extends State<ProfilePage> {
           .then((DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists && mounted) {
           // 2. "mounted" verifica se a tela ainda existe
-          setState(() {
-            userProfileImageUrl = documentSnapshot.get('profileImageUrl');
-          });
+          final data = documentSnapshot.data() as Map<String, dynamic>?;
+          final photoUrl = data?['profileImageUrl'];
+          if (photoUrl != null && photoUrl != '') {
+            setState(() {
+              userProfileImageUrl = photoUrl;
+            });
+          }
         }
       }).catchError((error) {
         print("Erro ao buscar dados: $error"); // 3. Trata erros de conexão

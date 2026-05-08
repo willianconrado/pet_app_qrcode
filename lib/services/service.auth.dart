@@ -104,12 +104,26 @@ class AuthService {
           .get();
 
       if (!userDoc.exists) {
+        // Usuário novo: cria documento completo
         await createUserInFirestore(
           userCredential.user!.uid,
           userCredential.user!.displayName ?? '',
           userCredential.user!.email ?? '',
           userCredential.user!.photoURL,
         );
+      } else {
+        // Usuário existente: atualiza a foto se ainda não tiver uma
+        final data = userDoc.data() as Map<String, dynamic>?;
+        final existingPhoto = data?['profileImageUrl'];
+        if ((existingPhoto == null || existingPhoto == '') &&
+            userCredential.user!.photoURL != null) {
+          await _firestore
+              .collection('users')
+              .doc(userCredential.user!.uid)
+              .set({
+            'profileImageUrl': userCredential.user!.photoURL,
+          }, SetOptions(merge: true));
+        }
       }
 
       return userCredential;

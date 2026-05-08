@@ -40,6 +40,10 @@ class _MyWidgetState extends State<MyAcc> {
   User? user;
   String? email;
   XFile? _image;
+  bool _isSaving = false;
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
 
   Future<void> _takePhoto(ImageSource source) async {
     try {
@@ -68,21 +72,73 @@ class _MyWidgetState extends State<MyAcc> {
     super.initState();
     user = FirebaseAuth.instance.currentUser;
     email = user?.email;
+    _nameController.text = user?.displayName ?? '';
 
     if (user != null) {
-      // Adicionamos esta verificação
       FirebaseFirestore.instance
           .collection('users')
           .doc(user!.uid)
           .get()
           .then((DocumentSnapshot documentSnapshot) {
         if (documentSnapshot.exists && mounted) {
-          // Adicionamos o "mounted"
-          setState(() {
-            userProfileImageUrl = documentSnapshot.get('profileImageUrl');
-          });
+          final data = documentSnapshot.data() as Map<String, dynamic>?;
+          final photoUrl = data?['profileImageUrl'];
+          if (photoUrl != null && photoUrl != '') {
+            setState(() {
+              userProfileImageUrl = photoUrl;
+            });
+          }
+          // Carrega nome e telefone salvos no Firestore
+          if (data?['name'] != null) {
+            _nameController.text = data!['name'];
+          }
+          if (data?['phone'] != null) {
+            _phoneController.text = data!['phone'];
+          }
         }
       }).catchError((e) => print("Erro ao buscar: $e"));
+    }
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _saveProfile() async {
+    if (user == null) return;
+    setState(() => _isSaving = true);
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(user!.uid).set({
+        'name': _nameController.text.trim(),
+        'phone': _phoneController.text.trim(),
+        'email': email,
+      }, SetOptions(merge: true));
+
+      // Atualiza o displayName no Firebase Auth também
+      await user!.updateDisplayName(_nameController.text.trim());
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Perfil salvo com sucesso!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erro ao salvar: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
     }
   }
 
@@ -143,6 +199,7 @@ class _MyWidgetState extends State<MyAcc> {
                             height: 12,
                           ),
                           TextFormField(
+                            controller: _nameController,
                             decoration: InputDecoration(
                               prefixIcon:
                                   const FaIcon(FontAwesomeIcons.circleUser),
@@ -150,7 +207,6 @@ class _MyWidgetState extends State<MyAcc> {
                               filled: true,
                               border: InputBorder.none,
                             ),
-                            initialValue: user?.displayName ?? '',
                           ),
                         ],
                       ),
@@ -168,11 +224,14 @@ class _MyWidgetState extends State<MyAcc> {
                             height: 12,
                           ),
                           TextFormField(
+                            controller: _phoneController,
+                            keyboardType: TextInputType.phone,
                             decoration: InputDecoration(
                               prefixIcon: const FaIcon(
                                 FontAwesomeIcons.phone,
                                 size: 17,
                               ),
+                              hintText: '(11) 99999-9999',
                               fillColor: Colors.grey[200],
                               filled: true,
                               border: InputBorder.none,
@@ -210,14 +269,23 @@ class _MyWidgetState extends State<MyAcc> {
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: _isSaving ? null : () => _saveProfile(),
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.infinity, 39),
                           ),
-                          child: const Text(
-                            "Salvar",
-                            style: TextStyle(fontSize: 17),
-                          ),
+                          child: _isSaving
+                              ? const SizedBox(
+                                  height: 20,
+                                  width: 20,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : const Text(
+                                  "Salvar",
+                                  style: TextStyle(fontSize: 17),
+                                ),
                         ),
                       ),
                     ),
