@@ -18,7 +18,6 @@ class MyAcc extends StatefulWidget {
 final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
 class _MyWidgetState extends State<MyAcc> {
-
   final FirebaseStorage storage = FirebaseStorage.instance;
   String? userProfileImageUrl;
 
@@ -33,7 +32,9 @@ class _MyWidgetState extends State<MyAcc> {
   Future<void> updateUserProfileImage(String userId, String imageUrl) async {
     final CollectionReference users =
         FirebaseFirestore.instance.collection('users');
-    await users.doc(userId).update({'profileImageUrl': imageUrl});
+    await users.doc(userId).set({
+      'profileImageUrl': imageUrl,
+    }, SetOptions(merge: true));
   }
 
   User? user;
@@ -51,11 +52,14 @@ class _MyWidgetState extends State<MyAcc> {
       // Atualize a URL da imagem de perfil no Firestore
       await updateUserProfileImage(user!.uid, downloadUrl);
 
-      setState(() {
-        _image = XFile(image.path);
-      });
+      if (mounted) {
+        setState(() {
+          _image = XFile(image.path);
+          userProfileImageUrl = downloadUrl; // AGORA A TELA ATUALIZA NA HORA!
+        });
+      }
     } catch (e) {
-      print(e);
+      print("Erro ao trocar foto: $e");
     }
   }
 
@@ -65,19 +69,24 @@ class _MyWidgetState extends State<MyAcc> {
     user = FirebaseAuth.instance.currentUser;
     email = user?.email;
 
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(user?.uid)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        setState(() {
-          userProfileImageUrl = documentSnapshot.get('profileImageUrl');
-        });
-      }
-    });
+    if (user != null) {
+      // Adicionamos esta verificação
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.uid)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists && mounted) {
+          // Adicionamos o "mounted"
+          setState(() {
+            userProfileImageUrl = documentSnapshot.get('profileImageUrl');
+          });
+        }
+      }).catchError((e) => print("Erro ao buscar: $e"));
+    }
   }
- @override
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
@@ -186,7 +195,8 @@ class _MyWidgetState extends State<MyAcc> {
                           ),
                           TextFormField(
                             decoration: InputDecoration(
-                              prefixIcon: const FaIcon(FontAwesomeIcons.envelope),
+                              prefixIcon:
+                                  const FaIcon(FontAwesomeIcons.envelope),
                               fillColor: Colors.grey[200],
                               filled: true,
                               border: InputBorder.none,
@@ -223,42 +233,57 @@ class _MyWidgetState extends State<MyAcc> {
 
   Widget bottomSheet() {
     return Container(
-      height: 100,
-      width: 100,
-      margin: const EdgeInsets.symmetric(
-        horizontal: 20,
-        vertical: 30,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20),
+          topRight: Radius.circular(20),
+        ),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min, // Ajusta o tamanho ao conteúdo
         children: <Widget>[
           const Text(
-            "Escolher a foto de perfil",
+            "Escolher foto de perfil",
             style: TextStyle(
               fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(
-            height: 12,
-          ),
+          const SizedBox(height: 20),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              TextButton.icon(
-                icon: const Icon(Icons.camera),
-                onPressed: () {
-                  _takePhoto(ImageSource.camera);
-                },
-                label: const Text("Camera"),
+              Column(
+                children: [
+                  IconButton(
+                    iconSize: 40,
+                    icon: const Icon(Icons.camera_alt, color: Colors.purple),
+                    onPressed: () {
+                      _takePhoto(ImageSource.camera);
+                      Navigator.pop(context); // Fecha o modal após clicar
+                    },
+                  ),
+                  const Text("Câmera")
+                ],
               ),
-              TextButton.icon(
-                icon: const FaIcon(FontAwesomeIcons.images),
-                onPressed: () {
-                  _takePhoto(ImageSource.gallery);
-                },
-                label: const Text("Gallery"),
+              Column(
+                children: [
+                  IconButton(
+                    iconSize: 40,
+                    icon: const Icon(Icons.image, color: Colors.purple),
+                    onPressed: () {
+                      _takePhoto(ImageSource.gallery);
+                      Navigator.pop(context); // Fecha o modal após clicar
+                    },
+                  ),
+                  const Text("Galeria")
+                ],
               ),
             ],
-          )
+          ),
+          const SizedBox(height: 10),
         ],
       ),
     );
@@ -274,8 +299,9 @@ class _MyWidgetState extends State<MyAcc> {
             child: CircleAvatar(
               radius: 59,
               backgroundImage: userProfileImageUrl != null
-                ? NetworkImage(userProfileImageUrl!) 
-                : const AssetImage("assets/noprofilepicture.png") as ImageProvider,  
+                  ? NetworkImage(userProfileImageUrl!)
+                  : const AssetImage("assets/noprofilepicture.png")
+                      as ImageProvider,
             ),
           ),
         ),

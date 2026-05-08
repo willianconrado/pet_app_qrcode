@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:pet_app_qrcode/screens/profilepage/address.screen.dart';
 import 'package:pet_app_qrcode/screens/profilepage/my.acc.dart';
 import 'package:pet_app_qrcode/screens/settings.screen.dart';
+
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
@@ -15,31 +15,35 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
-   String? userProfileImageUrl;
+  String? userProfileImageUrl;
   User? user;
   String? email;
 
-   XFile? imageFile;
+  XFile? imageFile;
 
   @override
   void initState() {
     super.initState();
     user = FirebaseAuth.instance.currentUser;
-
-    
-    FirebaseFirestore.instance
-        .collection('users')
-        .doc(user?.uid)
-        .get()
-        .then((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        setState(() {
-          userProfileImageUrl = documentSnapshot.get('profileImageUrl');
-        });
-      }
-    });
+    if (user != null) {
+      // 1. Verifica se o usuário está logado
+      FirebaseFirestore.instance
+          .collection('users')
+          .doc(user!.uid)
+          .get()
+          .then((DocumentSnapshot documentSnapshot) {
+        if (documentSnapshot.exists && mounted) {
+          // 2. "mounted" verifica se a tela ainda existe
+          setState(() {
+            userProfileImageUrl = documentSnapshot.get('profileImageUrl');
+          });
+        }
+      }).catchError((error) {
+        print("Erro ao buscar dados: $error"); // 3. Trata erros de conexão
+      });
+    }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,10 +69,10 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             child: Column(
               children: <Widget>[
-                 Padding(
+                Padding(
                   padding: const EdgeInsets.only(top: 60),
                   child: Text(
-                     "Olá, ${user?.displayName ?? ''}",
+                    "Olá, ${user?.displayName ?? ''}",
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
@@ -104,7 +108,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       size: 30,
                     ),
                     title: const Text('Meu Endereço'),
-                    trailing: const FaIcon(FontAwesomeIcons.angleRight, size: 20),
+                    trailing:
+                        const FaIcon(FontAwesomeIcons.angleRight, size: 20),
                     onTap: () {
                       Navigator.push(
                           context,
@@ -135,7 +140,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
-           Positioned(
+          Positioned(
             top: 0,
             left: 0,
             right: 0,
@@ -146,9 +151,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: CircleAvatar(
                   backgroundColor: Colors.greenAccent,
                   radius: 55,
-                    backgroundImage: userProfileImageUrl != null
-                ? NetworkImage(userProfileImageUrl!) 
-                : const AssetImage("assets/noprofilepicture.png") as ImageProvider,
+                  backgroundImage: userProfileImageUrl != null
+                      ? NetworkImage(userProfileImageUrl!)
+                      : const AssetImage("assets/noprofilepicture.png")
+                          as ImageProvider,
                 ),
               ),
             ),

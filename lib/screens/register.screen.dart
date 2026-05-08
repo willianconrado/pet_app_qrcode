@@ -248,10 +248,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (erro != null) {
         showSnackBar(context: context, text: erro);
       } else {
-        User? currentUser = FirebaseAuth.instance.currentUser;
-        if (currentUser != null) {
-          authService.createUserInFirestore(currentUser.uid, name, email);
-        }
         Navigator.pop(context);
       }
     });

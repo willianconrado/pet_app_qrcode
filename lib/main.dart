@@ -13,7 +13,7 @@ void main() async {
   );
 
   WidgetsFlutterBinding.ensureInitialized();
-  await Geolocator.openAppSettings();
+  await Geolocator.requestPermission();
 
   runApp(const MyApp());
 }

@@ -20,31 +20,33 @@ class TabsPage extends StatelessWidget {
             ProfilePage(),
           ],
         ),
-        bottomNavigationBar: TabBar(
-          labelPadding: EdgeInsets.symmetric(horizontal: 4.0),
-          tabs: [
-            Tab(
-              icon: Icon(Icons.home),
-              text: 'Início',
-            ),
-            Tab(
-              icon: Icon(Icons.calendar_today),
-              text: 'Agenda',
-            ),
-            Tab(
-              icon: Icon(Icons.notifications),
-              text: 'Notificações',
-            ),
-            Tab(
-              icon: Icon(Icons.person),
-              text: 'Perfil',
-            ),
-          ],
-          labelColor: Colors.purple,
-          unselectedLabelColor: Colors.black45,
-          indicatorSize: TabBarIndicatorSize.label,
-          indicatorPadding: EdgeInsets.all(5.0),
-          indicatorColor: Colors.black,
+        bottomNavigationBar: SafeArea(
+          child: TabBar(
+            labelPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+            tabs: const [
+              Tab(
+                icon: Icon(Icons.home),
+                text: 'Início',
+              ),
+              Tab(
+                icon: Icon(Icons.calendar_today),
+                text: 'Agenda',
+              ),
+              Tab(
+                icon: Icon(Icons.notifications),
+                text: 'Notificações',
+              ),
+              Tab(
+                icon: Icon(Icons.person),
+                text: 'Perfil',
+              ),
+            ],
+            labelColor: Colors.purple,
+            unselectedLabelColor: Colors.black45,
+            indicatorSize: TabBarIndicatorSize.label,
+            indicatorPadding: const EdgeInsets.all(5.0),
+            indicatorColor: Colors.black,
+          ),
         ),
       ),
     );
