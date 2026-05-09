@@ -1,6 +1,6 @@
 // Aqui ficara a pagina principal do app
 import 'package:flutter/material.dart';
-import 'package:pet_app_qrcode/screens/homepage/activate.pin.dart';
+import 'package:pet_app_qrcode/screens/homepage/pet.register.dart';
 import 'package:pet_app_qrcode/screens/homepage/qrcode.page.dart';
 import 'package:pet_app_qrcode/widgets/category-list.widget.dart';
 
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ActivePin(),
+                          builder: (context) => const PetRegister(),
                         ),
                       );
                     }),

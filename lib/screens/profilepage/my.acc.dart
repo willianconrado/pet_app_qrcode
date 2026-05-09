@@ -41,6 +41,7 @@ class _MyWidgetState extends State<MyAcc> {
   String? email;
   XFile? _image;
   bool _isSaving = false;
+  bool _isPhotoLoading = false;
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
@@ -49,6 +50,8 @@ class _MyWidgetState extends State<MyAcc> {
     try {
       final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
+
+      setState(() => _isPhotoLoading = true);
 
       // Realize o upload da imagem para o Firebase Storage
       final downloadUrl = await uploadImageToStorage(user!.uid, image);
@@ -59,11 +62,30 @@ class _MyWidgetState extends State<MyAcc> {
       if (mounted) {
         setState(() {
           _image = XFile(image.path);
-          userProfileImageUrl = downloadUrl; // AGORA A TELA ATUALIZA NA HORA!
+          // Adicionamos um timestamp para forçar o refresh da imagem (Cache Buster)
+          userProfileImageUrl =
+              "$downloadUrl&t=${DateTime.now().millisecondsSinceEpoch}";
+          _isPhotoLoading = false;
         });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Foto de perfil atualizada!'),
+            backgroundColor: Colors.green,
+          ),
+        );
       }
     } catch (e) {
       print("Erro ao trocar foto: $e");
+      if (mounted) {
+        setState(() => _isPhotoLoading = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erro ao carregar foto: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
     }
   }
 
@@ -366,10 +388,14 @@ class _MyWidgetState extends State<MyAcc> {
             backgroundColor: Colors.black,
             child: CircleAvatar(
               radius: 59,
+              backgroundColor: Colors.grey[300],
               backgroundImage: userProfileImageUrl != null
                   ? NetworkImage(userProfileImageUrl!)
                   : const AssetImage("assets/noprofilepicture.png")
                       as ImageProvider,
+              child: _isPhotoLoading
+                  ? const CircularProgressIndicator(color: Colors.white)
+                  : null,
             ),
           ),
         ),

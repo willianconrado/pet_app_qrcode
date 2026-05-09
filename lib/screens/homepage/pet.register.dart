@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pet_app_qrcode/screens/homepage/pet.info.dart';
 
 class PetRegister extends StatefulWidget {
   const PetRegister({super.key});
@@ -24,97 +25,107 @@ class _PetRegisterState extends State<PetRegister> {
               color: Colors.black, size: 18),
         ),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(20.0),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Meu pet é um(a)...",
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+              const SizedBox(height: 32),
+              Expanded(
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 20,
+                  mainAxisSpacing: 20,
+                  children: [
+                    _buildPetOption(
+                      context,
+                      "Cachorro",
+                      "assets/dog.png",
+                    ),
+                    _buildPetOption(
+                      context,
+                      "Gato",
+                      "assets/cat.png",
+                    ),
+                    _buildPetOption(
+                      context,
+                      "Pássaro",
+                      "assets/bird.png",
+                    ),
+                    _buildPetOption(
+                      context,
+                      "Outro",
+                      "assets/pig.png",
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPetOption(BuildContext context, String label, String imagePath) {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PetInfo(petType: label),
+          ),
+        );
+      },
+      borderRadius: BorderRadius.circular(20),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              spreadRadius: 2,
+              blurRadius: 8,
+              offset: const Offset(0, 4),
+            ),
+          ],
+          border: Border.all(
+            color: Colors.grey.shade200,
+            width: 1,
+          ),
+        ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Container(
+              padding: const EdgeInsets.all(4),
+              decoration: const BoxDecoration(
+                color: Colors.purple,
+                shape: BoxShape.circle,
+              ),
+              child: CircleAvatar(
+                radius: 45,
+                backgroundColor: Colors.white,
+                backgroundImage: AssetImage(imagePath),
+              ),
+            ),
+            const SizedBox(height: 12),
             Text(
-              "Meu pet é um(a)...",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Center(
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.black,
-                    radius: 70,
-                    child: CircleAvatar(
-                      radius: 66,
-                      backgroundImage: AssetImage("assets/dog.png"),
-                    ),
-                  ),
-                  Text(
-                    "Cachorro",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Center(
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.black,
-                    radius: 70,
-                    child: CircleAvatar(
-                      radius: 66,
-                      backgroundImage: AssetImage("assets/cat.png"),
-                    ),
-                  ),
-                  Text(
-                    "Gato",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Center(
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.black,
-                    radius: 70,
-                    child: CircleAvatar(
-                      radius: 66,
-                      backgroundImage: AssetImage("assets/bird.png"),
-                    ),
-                  ),
-                  Text(
-                    "Pássaro",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Center(
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.black,
-                    radius: 70,
-                    child: CircleAvatar(
-                      radius: 66,
-                      backgroundImage: AssetImage("assets/pig.png"),
-                    ),
-                  ),
-                  Text(
-                    "Outro",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  )
-                ],
+              label,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: Colors.purple,
               ),
             ),
           ],

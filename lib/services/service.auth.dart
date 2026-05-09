@@ -36,6 +36,8 @@ class AuthService {
           .createUserWithEmailAndPassword(email: email, password: password);
 
       // Criar documento do usuário no Firestore
+      await userCredential.user!.sendEmailVerification();
+
       await createUserInFirestore(userCredential.user!.uid, name, email, null);
 
       return null;
