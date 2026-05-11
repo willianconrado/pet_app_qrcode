@@ -217,7 +217,30 @@ class _HomePageState extends State<HomePage> {
             CircleAvatar(
               radius: 35,
               backgroundColor: Colors.purple.shade50,
-              backgroundImage: AssetImage(assetPath),
+              child: ClipOval(
+                child: Builder(
+                  builder: (context) {
+                    // Try multiple possible field names for the image URL
+                    final url = pet['imageUrl'] ?? pet['petPhotoUrl'] ?? pet['photoUrl'] ?? pet['image'];
+                    if (url != null && url.toString().isNotEmpty) {
+                      return Image.network(
+                        url.toString(),
+                        width: 70,
+                        height: 70,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Image.asset(assetPath, fit: BoxFit.contain),
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return const Center(
+                              child: CircularProgressIndicator(strokeWidth: 2));
+                        },
+                      );
+                    }
+                    return Image.asset(assetPath, fit: BoxFit.contain);
+                  },
+                ),
+              ),
             ),
             const SizedBox(height: 12),
             Text(

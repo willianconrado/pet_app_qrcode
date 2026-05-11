@@ -1,6 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../components/authentication.input.decoration.dart';
 
 class PetEdit extends StatefulWidget {
@@ -19,6 +22,8 @@ class _PetEditState extends State<PetEdit> {
   late TextEditingController _ageController;
   late String _gender;
   bool _isLoading = false;
+  File? _imageFile;
+  String? _currentImageUrl;
 
   @override
   void initState() {
@@ -27,12 +32,69 @@ class _PetEditState extends State<PetEdit> {
     _breedController = TextEditingController(text: widget.petData['breed']);
     _ageController = TextEditingController(text: widget.petData['age']);
     _gender = widget.petData['gender'] ?? "Macho";
+    _currentImageUrl = widget.petData['imageUrl'] ?? widget.petData['petPhotoUrl'] ?? widget.petData['photoUrl'];
+  }
+
+  final ImagePicker _picker = ImagePicker();
+  bool _isPickingImage = false;
+
+  Future<void> _pickImage() async {
+    if (_isPickingImage) return;
+    _isPickingImage = true;
+    try {
+      final XFile? pickedFile =
+          await _picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        setState(() {
+          _imageFile = File(pickedFile.path);
+        });
+      }
+    } finally {
+      _isPickingImage = false;
+    }
+  }
+
+  Future<String?> _uploadImage() async {
+    if (_imageFile == null) return _currentImageUrl;
+    try {
+      final uid = FirebaseAuth.instance.currentUser?.uid;
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child('users')
+          .child(uid!)
+          .child('pets')
+          .child('${widget.petId}.jpg');
+      
+      final data = await _imageFile!.readAsBytes();
+      await storageRef.putData(data);
+      return await storageRef.getDownloadURL();
+    } catch (e) {
+      debugPrint("Erro no upload da imagem: $e");
+      return "ERROR: $e";
+    }
   }
 
   Future<void> _updatePet() async {
     setState(() => _isLoading = true);
     try {
       final uid = FirebaseAuth.instance.currentUser?.uid;
+
+      String? imageUrl;
+      if (_imageFile != null) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Atualizando imagem do pet...")),
+          );
+        }
+        final result = await _uploadImage();
+        if (result != null && result.startsWith("ERROR:")) {
+          throw Exception("Erro no Storage: ${result.replaceFirst("ERROR: ", "")}");
+        }
+        imageUrl = result;
+      } else {
+        imageUrl = _currentImageUrl;
+      }
+
       await FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
@@ -43,6 +105,8 @@ class _PetEditState extends State<PetEdit> {
         'breed': _breedController.text,
         'age': _ageController.text,
         'gender': _gender,
+        'imageUrl': imageUrl,
+        'petPhotoUrl': imageUrl, // Redundant field for compatibility
       });
 
       if (mounted) {
@@ -87,6 +151,22 @@ class _PetEditState extends State<PetEdit> {
     setState(() => _isLoading = true);
     try {
       final uid = FirebaseAuth.instance.currentUser?.uid;
+      
+      // Delete image from storage if exists
+      if (_currentImageUrl != null) {
+        try {
+          await FirebaseStorage.instance
+              .ref()
+              .child('users')
+              .child(uid!)
+              .child('pets')
+              .child('${widget.petId}.jpg')
+              .delete();
+        } catch (e) {
+          print("Erro ao deletar imagem: $e");
+        }
+      }
+
       await FirebaseFirestore.instance
           .collection('users')
           .doc(uid)
@@ -135,12 +215,38 @@ class _PetEditState extends State<PetEdit> {
           child: Column(
             children: [
               const SizedBox(height: 10),
-              // Avatar (Visual apenas por enquanto)
-              CircleAvatar(
-                radius: 65,
-                backgroundColor: Colors.purple.shade50,
-                child:
-                    Icon(Icons.pets, size: 60, color: Colors.purple.shade200),
+              // Avatar
+              Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: Colors.purple.shade100, width: 4),
+                    ),
+                    child: CircleAvatar(
+                      radius: 65,
+                      backgroundColor: Colors.purple.shade50,
+                      backgroundImage: _imageFile != null 
+                        ? FileImage(_imageFile!) 
+                        : (_currentImageUrl != null ? NetworkImage(_currentImageUrl!) : null) as ImageProvider?,
+                      child: (_imageFile == null && _currentImageUrl == null)
+                          ? Icon(Icons.pets, size: 60, color: Colors.purple.shade200)
+                          : null,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: CircleAvatar(
+                      backgroundColor: Colors.purple,
+                      radius: 20,
+                      child: IconButton(
+                        icon: const Icon(Icons.camera_alt, size: 20, color: Colors.white),
+                        onPressed: _pickImage,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 30),
               TextFormField(

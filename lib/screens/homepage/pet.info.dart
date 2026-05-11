@@ -1,6 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../components/authentication.input.decoration.dart';
 
 class PetInfo extends StatefulWidget {
@@ -18,6 +21,44 @@ class _PetInfoState extends State<PetInfo> {
   final TextEditingController _ageController = TextEditingController();
   String _gender = "Macho";
   bool _isLoading = false;
+  File? _imageFile;
+  final ImagePicker _picker = ImagePicker();
+  bool _isPickingImage = false;
+
+  Future<void> _pickImage() async {
+    if (_isPickingImage) return;
+    _isPickingImage = true;
+    try {
+      final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        setState(() {
+          _imageFile = File(pickedFile.path);
+        });
+      }
+    } finally {
+      _isPickingImage = false;
+    }
+  }
+
+  Future<String?> _uploadImage(String petId) async {
+    if (_imageFile == null) return null;
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      final storageRef = FirebaseStorage.instance
+          .ref()
+          .child('users')
+          .child(user!.uid)
+          .child('pets')
+          .child('$petId.jpg');
+      
+      final data = await _imageFile!.readAsBytes();
+      await storageRef.putData(data);
+      return await storageRef.getDownloadURL();
+    } catch (e) {
+      debugPrint("Erro no upload da imagem: $e");
+      return "ERROR: $e";
+    }
+  }
 
   Future<void> _savePet() async {
     setState(() => _isLoading = true);
@@ -25,16 +66,35 @@ class _PetInfoState extends State<PetInfo> {
       final user = FirebaseAuth.instance.currentUser;
       if (user == null) throw Exception("Usuário não autenticado");
 
-      await FirebaseFirestore.instance
+      // Generate a document reference first to get the ID for the image path
+      final petRef = FirebaseFirestore.instance
           .collection('users')
           .doc(user.uid)
           .collection('pets')
-          .add({
+          .doc();
+
+      String? imageUrl;
+      if (_imageFile != null) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Enviando imagem do pet...")),
+          );
+        }
+        final result = await _uploadImage(petRef.id);
+        if (result != null && result.startsWith("ERROR:")) {
+          throw Exception("Falha no Firebase Storage: ${result.replaceFirst("ERROR: ", "")}");
+        }
+        imageUrl = result;
+      }
+
+      await petRef.set({
         'name': _nameController.text,
         'breed': _breedController.text,
         'age': _ageController.text,
         'gender': _gender,
         'petType': widget.petType,
+        'imageUrl': imageUrl,
+        'petPhotoUrl': imageUrl, // Redundant field for compatibility
         'createdAt': FieldValue.serverTimestamp(),
       });
 
@@ -85,11 +145,14 @@ class _PetInfoState extends State<PetInfo> {
                     child: CircleAvatar(
                       radius: 65,
                       backgroundColor: Colors.grey.shade100,
-                      child: Icon(
-                        Icons.pets,
-                        size: 60,
-                        color: Colors.purple.shade200,
-                      ),
+                      backgroundImage: _imageFile != null ? FileImage(_imageFile!) : null,
+                      child: _imageFile == null
+                          ? Icon(
+                              Icons.pets,
+                              size: 60,
+                              color: Colors.purple.shade200,
+                            )
+                          : null,
                     ),
                   ),
                   Positioned(
@@ -101,9 +164,7 @@ class _PetInfoState extends State<PetInfo> {
                       child: IconButton(
                         icon: const Icon(Icons.camera_alt,
                             size: 20, color: Colors.white),
-                        onPressed: () {
-                          // Implementar seleção de imagem
-                        },
+                        onPressed: _pickImage,
                       ),
                     ),
                   ),
